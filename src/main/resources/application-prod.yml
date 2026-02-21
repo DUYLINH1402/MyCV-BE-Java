@@ -1,0 +1,49 @@
+# =====================================================
+# Portfolio API - Production Profile Configuration
+# =====================================================
+
+spring:
+  # =====================================================
+  # Database Configuration (Production)
+  # Use environment variables for sensitive data
+  # =====================================================
+  datasource:
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+    hikari:
+      maximum-pool-size: 20
+      minimum-idle: 10
+
+  # =====================================================
+  # JPA Configuration (Production)
+  # =====================================================
+  jpa:
+    hibernate:
+      ddl-auto: validate  # Only validate, never modify in production
+    show-sql: false
+
+  # =====================================================
+  # Flyway Configuration (Production)
+  # =====================================================
+  flyway:
+    enabled: true
+    clean-disabled: true  # Never allow cleaning in production
+
+# =====================================================
+# Server Configuration (Production)
+# =====================================================
+server:
+  port: ${PORT:8080}
+
+# =====================================================
+# Logging Configuration (Production)
+# =====================================================
+logging:
+  level:
+    root: WARN
+    com.linhnguyen.portfolio_api: INFO
+    org.hibernate.SQL: WARN
+  file:
+    name: /var/log/portfolio-api/application.log
+

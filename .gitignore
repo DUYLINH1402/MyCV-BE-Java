@@ -18,7 +18,7 @@ target/
 *.iws
 *.iml
 *.ipr
-
+*.md
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
@@ -31,3 +31,13 @@ build/
 
 ### VS Code ###
 .vscode/
+.github/copilot-instructions.md
+
+#### Environment Variables ###
+.env
+.env.local
+.env.*.local
+
+### Logs ###
+LOG.TXT
+*.log

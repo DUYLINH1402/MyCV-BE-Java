@@ -1,0 +1,38 @@
+# =====================================================
+# Portfolio API - Development Profile Configuration
+# =====================================================
+
+spring:
+  # =====================================================
+  # Database Configuration (Development - PostgreSQL)
+  # =====================================================
+  datasource:
+    url: jdbc:postgresql://localhost:5432/portfolio_db
+    username: postgres
+    password: Ngaythanhcong1402
+
+  # =====================================================
+  # JPA Configuration (Development)
+  # =====================================================
+  jpa:
+    hibernate:
+      ddl-auto: update  # Auto-update schema in dev mode
+    show-sql: true
+
+  # =====================================================
+  # Flyway Configuration (Development)
+  # =====================================================
+  flyway:
+    enabled: true
+    clean-disabled: false  # Allow cleaning in dev
+
+# =====================================================
+# Logging Configuration (Development)
+# =====================================================
+logging:
+  level:
+    root: INFO
+    com.linhnguyen.portfolio_api: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+
