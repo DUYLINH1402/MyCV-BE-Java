@@ -37,11 +37,16 @@ jobs:
           --health-timeout 5s
           --health-retries 5
 
+#   Các bước thực hiện
+#    Cài đặt Java 17.
+#    Tải các thư viện Maven về (có cache lại để lần sau chạy nhanh hơn).
+#    Chạy mvn test để đảm bảo code không bị lỗi logic.
+#    Job 2 & Job 3: Chạy quét lỗi format code (Checkstyle) và quét lỗ hổng bảo mật (Trivy scanner) để đảm bảo code an toàn.
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: ☕ Setup Java ${{ env.JAVA_VERSION }}
+      - name: Setup Java ${{ env.JAVA_VERSION }}
         uses: actions/setup-java@v4
         with:
           java-version: ${{ env.JAVA_VERSION }}

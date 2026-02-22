@@ -1,19 +1,23 @@
 # =====================================================
 # Portfolio API - Production Profile Configuration
+# Dùng cho AWS EC2 + RDS
 # =====================================================
 
 spring:
   # =====================================================
-  # Database Configuration (Production)
-  # Use environment variables for sensitive data
+  # Database Configuration (AWS RDS PostgreSQL)
+  # Sử dụng environment variables từ EC2
   # =====================================================
   datasource:
-    url: ${DATABASE_URL}
-    username: ${DATABASE_USERNAME}
-    password: ${DATABASE_PASSWORD}
+    url: jdbc:postgresql://${DB_HOST}:${DB_PORT:5432}/${DB_NAME:portfolio_db}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
     hikari:
-      maximum-pool-size: 20
-      minimum-idle: 10
+      maximum-pool-size: ${DB_POOL_SIZE:20}
+      minimum-idle: ${DB_POOL_MIN_IDLE:10}
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
 
   # =====================================================
   # JPA Configuration (Production)
@@ -22,6 +26,10 @@ spring:
     hibernate:
       ddl-auto: validate  # Only validate, never modify in production
     show-sql: false
+    properties:
+      hibernate:
+        format_sql: false
+        generate_statistics: false
 
   # =====================================================
   # Flyway Configuration (Production)
@@ -29,12 +37,16 @@ spring:
   flyway:
     enabled: true
     clean-disabled: true  # Never allow cleaning in production
+    validate-on-migrate: true
 
 # =====================================================
 # Server Configuration (Production)
 # =====================================================
 server:
-  port: ${PORT:8080}
+  port: ${SERVER_PORT:8080}
+  tomcat:
+    max-threads: 200
+    min-spare-threads: 20
 
 # =====================================================
 # Logging Configuration (Production)
@@ -44,6 +56,18 @@ logging:
     root: WARN
     com.linhnguyen.portfolio_api: INFO
     org.hibernate.SQL: WARN
-  file:
-    name: /var/log/portfolio-api/application.log
+    org.springframework.web: WARN
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+
+# =====================================================
+# Security Configuration (Production)
+# =====================================================
+application:
+  security:
+    jwt:
+      secret-key: ${JWT_SECRET}
+      expiration: ${JWT_EXPIRATION:86400000}
+    admin:
+      secret-token: ${ADMIN_SECRET_TOKEN}
 

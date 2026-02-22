@@ -37,6 +37,9 @@ build/
 .env
 .env.local
 .env.*.local
+.env.production
+*.pem
+*.key
 
 ### Logs ###
 LOG.TXT

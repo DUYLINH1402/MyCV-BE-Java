@@ -1,14 +1,24 @@
+# =====================================
+# Docker Compose - Local Development
+# Chỉ chạy PostgreSQL, app chạy local
+# =====================================
 services:
   postgres:
-    image: 'postgres:18'
+    image: 'postgres:16-alpine'
+    container_name: portfolio-db-local
     environment:
-      - 'POSTGRES_DB=portfolio_db'
-      - 'POSTGRES_PASSWORD=Ngaythanhcong1402'
-      - 'POSTGRES_USER=postgres'
+      - POSTGRES_DB=${DB_NAME:-portfolio_db}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_USER=${DB_USERNAME:-postgres}
     ports:
-      - '5432:5432'
+      - '${DB_PORT:-5432}:5432'
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USERNAME:-postgres} -d ${DB_NAME:-portfolio_db}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 volumes:
   postgres_data:
