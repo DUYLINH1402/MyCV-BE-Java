@@ -111,7 +111,7 @@ jobs:
 
       - name: Deploy to EC2
         run: |
-          ssh -i ~/.ssh/ec2_key -o StrictHostKeyChecking=no ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'ENDSSH'
+          ssh -i ~/.ssh/ec2_key -o StrictHostKeyChecking=no ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << ENDSSH
             # Di chuyển đến thư mục app
             cd /home/${{ secrets.EC2_USER }}/portfolio-api || mkdir -p /home/${{ secrets.EC2_USER }}/portfolio-api && cd /home/${{ secrets.EC2_USER }}/portfolio-api
             
