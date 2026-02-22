@@ -1,16 +1,17 @@
 # =====================================================
 # Portfolio API - Development Profile Configuration
+# Dùng PostgreSQL local (Docker Compose) khi dev
 # =====================================================
 
 spring:
   # =====================================================
   # Database Configuration (Development - PostgreSQL Local)
-  # Đọc từ file .env hoặc biến môi trường
+  # Ưu tiên dùng DB local, fallback sang .env nếu muốn test RDS
   # =====================================================
   datasource:
-    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:portfolio_db}
-    username: postgres}
-    password: ${DB_PASSWORD}
+    url: jdbc:postgresql://localhost:5433/portfolio_db
+    username: nganle0503
+    password: Ngaythanhcong1402
 
   # =====================================================
   # JPA Configuration (Development)
