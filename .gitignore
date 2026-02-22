@@ -42,5 +42,7 @@ build/
 *.key
 
 ### Logs ###
-LOG.TXT
+LOG.log
 *.log
+Notes.txt
+/src/main/resources/application-dev.yml
