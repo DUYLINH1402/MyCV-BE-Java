@@ -12,4 +12,5 @@ WORKDIR /app
 # Copy file .jar từ giai đoạn build sang đây
 COPY --from=build /app/target/*.jar app.jar
 EXPOSE 8080
+# Sử dụng exec form + shell expansion để đọc biến môi trường
 ENTRYPOINT ["java", "-jar", "app.jar"]

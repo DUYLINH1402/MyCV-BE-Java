@@ -14,13 +14,15 @@ services:
     restart: unless-stopped
     ports:
       - "${SERVER_PORT:-8080}:8080"
+    env_file:
+      - .env
     environment:
       # Spring Profile
       - SPRING_PROFILES_ACTIVE=prod
       # Database (AWS RDS)
       - DB_HOST=${DB_HOST}
       - DB_PORT=${DB_PORT:-5432}
-      - DB_NAME=${DB_NAME}
+      - DB_NAME=${DB_NAME:-portfolio_db}
       - DB_USERNAME=${DB_USERNAME}
       - DB_PASSWORD=${DB_PASSWORD}
       - DB_POOL_SIZE=20

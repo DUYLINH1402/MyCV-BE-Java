@@ -14,11 +14,12 @@ spring:
   # Profile Selection (dev/prod/test)
   # =====================================================
   profiles:
-    active: ${SPRING_PROFILES_ACTIVE:dev}
+    active: ${SPRING_PROFILES_ACTIVE}
 
   # =====================================================
   # Database Configuration (PostgreSQL)
   # Sử dụng biến môi trường để bảo mật thông tin nhạy cảm
+  # Cung cấp default values để tránh crash khi biến chưa được set
   # =====================================================
   datasource:
     url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}
