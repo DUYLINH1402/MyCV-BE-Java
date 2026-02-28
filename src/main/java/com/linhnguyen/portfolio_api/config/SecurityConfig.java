@@ -15,6 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfigurationSource;
 
 /**
  * Cấu hình Spring Security cho Portfolio API.
@@ -34,6 +35,7 @@ public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+    private final CorsConfigurationSource corsConfigurationSource;
 
     /**
      * Các đường dẫn công khai không cần xác thực.
@@ -67,6 +69,9 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                // Tích hợp CORS với Spring Security - đảm bảo CORS filter chạy trước các security filter
+                .cors(cors -> cors.configurationSource(corsConfigurationSource))
+
                 // Disable CSRF vì sử dụng JWT (stateless)
                 .csrf(AbstractHttpConfigurer::disable)
 

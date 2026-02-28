@@ -107,6 +107,19 @@ springdoc:
   show-actuator: false
 
 # =====================================================
+# CORS Configuration
+# Cấu hình mặc định, có thể override theo từng profile (dev/prod)
+# =====================================================
+app:
+  cors:
+    allowed-origins: ${CORS_ALLOWED_ORIGINS}
+    allowed-methods: GET,POST,PUT,PATCH,DELETE,OPTIONS
+    allowed-headers: "*"
+    exposed-headers: Authorization,Content-Disposition
+    allow-credentials: true
+    max-age: 3600
+
+# =====================================================
 # JWT Security Configuration
 # =====================================================
 application:

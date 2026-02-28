@@ -61,6 +61,14 @@ logging:
     console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
 
 # =====================================================
+# CORS Configuration (Production)
+# Chỉ cho phép domain frontend chính thức
+# =====================================================
+app:
+  cors:
+    allowed-origins: ${CORS_ALLOWED_ORIGINS:https://portfolio-f2abd.web.app}
+
+# =====================================================
 # Security Configuration (Production)
 # =====================================================
 application:
