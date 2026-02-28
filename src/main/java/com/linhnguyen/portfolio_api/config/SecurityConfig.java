@@ -38,7 +38,8 @@ public class SecurityConfig {
     private final CorsConfigurationSource corsConfigurationSource;
 
     /**
-     * Các đường dẫn công khai không cần xác thực.
+     * Các endpoint hoàn toàn public: không cần xác thực bất kể HTTP method.
+     * Bao gồm: auth, health check, Swagger UI docs.
      */
     private static final String[] PUBLIC_ENDPOINTS = {
             "/v1/auth/login",
@@ -51,12 +52,20 @@ public class SecurityConfig {
     };
 
     /**
-     * Các đường dẫn API công khai (chỉ cho phép GET).
+     * Các endpoint Portfolio công khai — chỉ cho phép đọc (GET).
+     * Frontend dùng để hiển thị thông tin, không cần đăng nhập.
      */
     private static final String[] PUBLIC_GET_ENDPOINTS = {
             "/v1/profile/**",
             "/v1/projects/**",
             "/v1/skills/**"
+    };
+
+    /**
+     * Các endpoint quản trị — yêu cầu JWT với role ADMIN.
+     */
+    private static final String[] ADMIN_ENDPOINTS = {
+            "/v1/admin/**"
     };
 
     /**
@@ -87,16 +96,20 @@ public class SecurityConfig {
 
                 // Cấu hình phân quyền cho các endpoints
                 .authorizeHttpRequests(auth -> auth
-                        // Cho phép truy cập không cần xác thực với các endpoint public
+                        // Permit toàn bộ OPTIONS request — cần thiết cho CORS preflight
+                        // Trình duyệt gửi OPTIONS trước mọi cross-origin request có credentials
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+
+                        // Các endpoint công khai: auth, health, swagger docs
                         .requestMatchers(PUBLIC_ENDPOINTS).permitAll()
 
-                        // Cho phép GET request đến các API công khai
+                        // Portfolio public APIs: chỉ cho phép đọc (GET), không cần xác thực
                         .requestMatchers(HttpMethod.GET, PUBLIC_GET_ENDPOINTS).permitAll()
 
-                        // Yêu cầu xác thực với role ADMIN cho các endpoint admin
-                        .requestMatchers("/v1/admin/**").hasRole("ADMIN")
+                        // Admin APIs: yêu cầu JWT hợp lệ với role ADMIN
+                        .requestMatchers(ADMIN_ENDPOINTS).hasRole("ADMIN")
 
-                        // Tất cả các request khác đều yêu cầu xác thực
+                        // Tất cả request còn lại đều yêu cầu xác thực
                         .anyRequest().authenticated()
                 )
 

@@ -35,27 +35,43 @@ public class CorsConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
-        // Đọc danh sách origin từ properties (phân tách bởi dấu phẩy)
-        List<String> origins = Arrays.asList(corsProperties.getAllowedOrigins().split(","));
+        // Đọc danh sách origin từ properties, trim để tránh lỗi do khoảng trắng thừa
+        List<String> origins = Arrays.stream(corsProperties.getAllowedOrigins().split(","))
+                .map(String::trim)
+                .filter(s -> !s.isEmpty())
+                .toList();
         configuration.setAllowedOrigins(origins);
         log.info("CORS - Allowed Origins: {}", origins);
 
         // Đọc danh sách HTTP methods từ properties
-        List<String> methods = Arrays.asList(corsProperties.getAllowedMethods().split(","));
+        List<String> methods = Arrays.stream(corsProperties.getAllowedMethods().split(","))
+                .map(String::trim)
+                .filter(s -> !s.isEmpty())
+                .toList();
         configuration.setAllowedMethods(methods);
+        log.info("CORS - Allowed Methods: {}", methods);
 
         // Đọc danh sách headers từ properties
-        List<String> headers = Arrays.asList(corsProperties.getAllowedHeaders().split(","));
+        List<String> headers = Arrays.stream(corsProperties.getAllowedHeaders().split(","))
+                .map(String::trim)
+                .filter(s -> !s.isEmpty())
+                .toList();
         configuration.setAllowedHeaders(headers);
+        log.info("CORS - Allowed Headers: {}", headers);
 
         // Đọc danh sách exposed headers từ properties
         if (corsProperties.getExposedHeaders() != null && !corsProperties.getExposedHeaders().isEmpty()) {
-            List<String> exposedHeaders = Arrays.asList(corsProperties.getExposedHeaders().split(","));
+            List<String> exposedHeaders = Arrays.stream(corsProperties.getExposedHeaders().split(","))
+                    .map(String::trim)
+                    .filter(s -> !s.isEmpty())
+                    .toList();
             configuration.setExposedHeaders(exposedHeaders);
+            log.info("CORS - Exposed Headers: {}", exposedHeaders);
         }
 
         // Cho phép gửi credentials (cookies, authorization headers)
         configuration.setAllowCredentials(corsProperties.isAllowCredentials());
+        log.info("CORS - Allow Credentials: {}", corsProperties.isAllowCredentials());
 
         // Thời gian browser cache CORS preflight response
         configuration.setMaxAge(corsProperties.getMaxAge());

@@ -109,12 +109,14 @@ springdoc:
 # =====================================================
 # CORS Configuration
 # Cấu hình mặc định, có thể override theo từng profile (dev/prod)
+# Lưu ý: Khi allow-credentials=true, KHÔNG được dùng wildcard "*"
+#    cho allowed-origins hoặc allowed-headers (vi phạm CORS spec)
 # =====================================================
 app:
   cors:
-    allowed-origins: ${CORS_ALLOWED_ORIGINS}
+    allowed-origins: ${CORS_ALLOWED_ORIGINS:https://portfolio-f2abd.web.app}
     allowed-methods: GET,POST,PUT,PATCH,DELETE,OPTIONS
-    allowed-headers: "*"
+    allowed-headers: Authorization,Content-Type,Accept,X-Requested-With,Cache-Control
     exposed-headers: Authorization,Content-Disposition
     allow-credentials: true
     max-age: 3600
