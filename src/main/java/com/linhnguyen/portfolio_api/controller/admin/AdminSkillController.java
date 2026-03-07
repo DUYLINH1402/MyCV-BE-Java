@@ -98,7 +98,7 @@ public class AdminSkillController {
             @PathVariable Long id) {
         log.info("[ADMIN] Request xóa skill với ID: {}", id);
         skillService.deleteSkill(id);
-        return ResponseEntity.ok(ApiResponse.success("Xóa skill thành công", null));
+        return ResponseEntity.ok(ApiResponse.successMessage("Xóa skill thành công"));
     }
 }
 

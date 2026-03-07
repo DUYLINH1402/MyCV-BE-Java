@@ -62,6 +62,14 @@ public class SecurityConfig {
     };
 
     /**
+     * Các endpoint công khai cho phép POST (không cần xác thực).
+     * Contact API cho phép nhà tuyển dụng gửi tin nhắn liên hệ.
+     */
+    private static final String[] PUBLIC_POST_ENDPOINTS = {
+            "/v1/contact"
+    };
+
+    /**
      * Các endpoint quản trị — yêu cầu JWT với role ADMIN.
      */
     private static final String[] ADMIN_ENDPOINTS = {
@@ -105,6 +113,9 @@ public class SecurityConfig {
 
                         // Portfolio public APIs: chỉ cho phép đọc (GET), không cần xác thực
                         .requestMatchers(HttpMethod.GET, PUBLIC_GET_ENDPOINTS).permitAll()
+
+                        // Contact API: cho phép POST để nhà tuyển dụng gửi tin nhắn liên hệ
+                        .requestMatchers(HttpMethod.POST, PUBLIC_POST_ENDPOINTS).permitAll()
 
                         // Admin APIs: yêu cầu JWT hợp lệ với role ADMIN
                         .requestMatchers(ADMIN_ENDPOINTS).hasRole("ADMIN")

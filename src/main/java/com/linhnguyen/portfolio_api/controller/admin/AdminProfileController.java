@@ -85,7 +85,7 @@ public class AdminProfileController {
     public ResponseEntity<ApiResponse<Void>> refreshCache() {
         log.info("[ADMIN] Request xóa cache profile");
         profileService.refreshProfileCache();
-        return ResponseEntity.ok(ApiResponse.success("Đã xóa toàn bộ cache profile", null));
+        return ResponseEntity.ok(ApiResponse.successMessage("Đã xóa toàn bộ cache profile"));
     }
 }
 

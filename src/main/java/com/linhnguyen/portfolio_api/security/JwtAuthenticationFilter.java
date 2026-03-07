@@ -94,11 +94,29 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
         String path = request.getServletPath();
-        // Không filter cho các endpoint public
-        return path.startsWith("/v1/auth/") ||
-               path.startsWith("/v1/health") ||
-               path.startsWith("/swagger-ui") ||
-               path.startsWith("/v3/api-docs");
+        String method = request.getMethod();
+
+        // Skip filter cho OPTIONS request (CORS preflight)
+        if ("OPTIONS".equalsIgnoreCase(method)) {
+            return true;
+        }
+
+        // Skip filter cho các endpoint hoàn toàn public
+        if (path.startsWith("/v1/auth/") ||
+            path.startsWith("/v1/health") ||
+            path.startsWith("/swagger-ui") ||
+            path.startsWith("/v3/api-docs")) {
+            return true;
+        }
+
+        // Skip filter cho các GET request đến public portfolio APIs
+        if ("GET".equalsIgnoreCase(method) &&
+            (path.startsWith("/v1/profile") ||
+             path.startsWith("/v1/projects") ||
+             path.startsWith("/v1/skills"))) {
+            return true;
+        }
+
+        return false;
     }
 }
-

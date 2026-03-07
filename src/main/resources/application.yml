@@ -3,6 +3,7 @@
 # Author: Nguyen Duy Linh
 # =====================================================
 
+
 spring:
   docker:
     compose:
@@ -14,7 +15,7 @@ spring:
   # Profile Selection (dev/prod/test)
   # =====================================================
   profiles:
-    active: ${SPRING_PROFILES_ACTIVE}
+    active: ${SPRING_PROFILES_ACTIVE:dev}
 
   # =====================================================
   # Database Configuration (PostgreSQL)
@@ -43,7 +44,7 @@ spring:
     open-in-view: false  # Best practice: disable OSIV to avoid lazy loading issues
     properties:
       hibernate:
-        format_sql: true
+        format_sql: false
         dialect: org.hibernate.dialect.PostgreSQLDialect
         jdbc:
           batch_size: 50
@@ -87,7 +88,7 @@ logging:
     com.linhnguyen.portfolio_api: DEBUG
     org.springframework.web: INFO
     org.hibernate.SQL: OFF
-    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    org.hibernate.type.descriptor.sql.BasicBinder: OFF
     org.hibernate.orm.connections.pooling: OFF
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
@@ -131,4 +132,16 @@ application:
       expiration: ${JWT_EXPIRATION:86400000}  # 24 hours in milliseconds
     admin:
       secret-token: ${ADMIN_SECRET_TOKEN:admin-default-token-change-in-production}
+
+# =====================================================
+# Brevo (Sendinblue) Email Configuration
+# Dùng để gửi email thông báo khi có tin nhắn liên hệ mới
+# =====================================================
+brevo:
+  api-key: ${BREVO_API_KEY:}
+  enabled: ${BREVO_ENABLED:true}
+  recipient-email: ${BREVO_RECIPIENT_EMAIL:}
+  recipient-name: ${BREVO_RECIPIENT_NAME:}
+  sender-email: ${BREVO_SENDER_EMAIL:}
+  sender-name: ${BREVO_SENDER_NAME:}
 

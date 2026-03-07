@@ -2,11 +2,14 @@ package com.linhnguyen.portfolio_api.config;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 import java.util.Arrays;
 import java.util.List;
@@ -81,5 +84,26 @@ public class CorsConfig {
         source.registerCorsConfiguration("/**", configuration);
 
         return source;
+    }
+
+    /**
+     * Đăng ký CorsFilter với highest priority để đảm bảo CORS được xử lý
+     * TRƯỚC TẤT CẢ các filter khác, bao gồm cả Spring Security filters.
+     *
+     * Điều này cần thiết vì:
+     * 1. Preflight request (OPTIONS) phải được xử lý trước khi đi vào Security filter
+     * 2. Nếu Security filter chạy trước, có thể reject request trước khi CORS headers được thêm
+     *
+     * @return FilterRegistrationBean với CorsFilter đã cấu hình
+     */
+    @Bean
+    public FilterRegistrationBean<CorsFilter> corsFilterRegistrationBean() {
+        FilterRegistrationBean<CorsFilter> bean = new FilterRegistrationBean<>(
+                new CorsFilter(corsConfigurationSource())
+        );
+        // Đặt order thấp nhất (highest priority) để chạy trước mọi filter khác
+        bean.setOrder(Ordered.HIGHEST_PRECEDENCE);
+        log.info("CORS Filter đã được đăng ký với priority cao nhất");
+        return bean;
     }
 }

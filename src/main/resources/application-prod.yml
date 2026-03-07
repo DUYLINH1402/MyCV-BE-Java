@@ -62,8 +62,6 @@ logging:
 
 # =====================================================
 # CORS Configuration (Production)
-# Chỉ cho phép domain frontend chính thức
-# ⚠️ allow-credentials=true yêu cầu explicit origin, không dùng wildcard
 # =====================================================
 app:
   cors:
@@ -80,8 +78,19 @@ app:
 application:
   security:
     jwt:
-      secret-key: ${JWT_SECRET}
+      secret-key: ${JWT_SECRET:portfolio-api-production-secret-key-change-this-in-real-environment}
       expiration: ${JWT_EXPIRATION:86400000}
     admin:
-      secret-token: ${ADMIN_SECRET_TOKEN}
+      secret-token: ${ADMIN_SECRET_TOKEN:admin-production-token-change-this-in-real-environment}
 
+
+# =====================================================
+# Brevo Email Configuration (Development)
+# =====================================================
+brevo:
+  api-key: ${BREVO_API_KEY}
+  enabled: ${BREVO_ENABLED:true}
+  recipient-email: ${BREVO_RECIPIENT_EMAIL}
+  recipient-name: ${BREVO_RECIPIENT_NAME}
+  sender-email: ${BREVO_SENDER_EMAIL}
+  sender-name: ${BREVO_SENDER_NAME}

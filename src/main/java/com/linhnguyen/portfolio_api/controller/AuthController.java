@@ -79,7 +79,7 @@ public class AuthController {
             @Valid @RequestBody ChangePasswordDTO request) {
         log.info("Change password request received");
         authService.changePassword(request);
-        return ResponseEntity.ok(ApiResponse.success("Đổi mật khẩu thành công", null));
+        return ResponseEntity.ok(ApiResponse.successMessage("Đổi mật khẩu thành công"));
     }
 }
 

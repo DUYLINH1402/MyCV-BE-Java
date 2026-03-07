@@ -98,7 +98,7 @@ public class AdminProjectController {
             @PathVariable Long id) {
         log.info("[ADMIN] Request xóa project với ID: {}", id);
         projectService.deleteProject(id);
-        return ResponseEntity.ok(ApiResponse.success("Xóa project thành công", null));
+        return ResponseEntity.ok(ApiResponse.successMessage("Xóa project thành công"));
     }
 }
 

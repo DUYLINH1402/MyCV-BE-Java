@@ -71,6 +71,16 @@ public class ApiResponse<T> {
     }
 
     /**
+     * Tạo response thành công chỉ với message (không có data).
+     *
+     * @param message Thông báo tùy chỉnh
+     * @return ApiResponse với status 200 và message
+     */
+    public static ApiResponse<Void> successMessage(String message) {
+        return new ApiResponse<>(200, message, null);
+    }
+
+    /**
      * Tạo response cho việc tạo mới thành công (HTTP 201).
      *
      * @param data Dữ liệu của resource vừa được tạo
