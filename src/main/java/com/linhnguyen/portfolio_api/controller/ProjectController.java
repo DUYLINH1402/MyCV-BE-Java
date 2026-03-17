@@ -20,7 +20,7 @@ import java.util.List;
  * Các API quản lý (POST, PUT, DELETE) được tách riêng vào AdminProjectController.
  */
 @RestController
-@RequestMapping("/v1/projects")
+@RequestMapping("/v1/public/projects")
 @RequiredArgsConstructor
 @Slf4j
 @Tag(name = "Projects", description = "API công khai xem dự án")
@@ -40,7 +40,6 @@ public class ProjectController {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Lấy danh sách thành công")
     })
     public ResponseEntity<ApiResponse<List<ProjectResponseDTO>>> getAllProjects() {
-        log.info("Request lấy danh sách tất cả projects");
         List<ProjectResponseDTO> projects = projectService.getAllProjects();
         return ResponseEntity.ok(ApiResponse.success(projects));
     }

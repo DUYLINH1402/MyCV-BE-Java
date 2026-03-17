@@ -54,7 +54,6 @@ public class SkillService {
      * @return Danh sách DTO chứa thông tin các skill
      */
     public List<SkillResponseDTO> getAllSkills() {
-        log.info("Đang lấy danh sách tất cả skill từ database");
         return skillRepository.findAllByIsDeletedFalse()
                 .stream()
                 .map(skillMapper::toResponseDTO)

@@ -20,10 +20,9 @@ import org.springframework.web.cors.CorsConfigurationSource;
 /**
  * Cấu hình Spring Security cho Portfolio API.
  *
- * Phân quyền:
- * - Public endpoints: GET /v1/profile, /v1/projects, /v1/skills (không cần xác thực)
- * - Admin endpoints: /v1/admin/** (yêu cầu JWT token)
- * - Auth endpoints: /v1/auth/** (public cho login)
+ * Phân quyền theo Role-Based URL Prefix:
+ * - Public endpoints: /v1/public/** (permitAll - không cần xác thực)
+ * - Admin endpoints: /v1/admin/** (hasRole("ADMIN") - yêu cầu JWT token)
  *
  * Sử dụng Stateless Session vì xác thực bằng JWT.
  */
@@ -38,12 +37,11 @@ public class SecurityConfig {
     private final CorsConfigurationSource corsConfigurationSource;
 
     /**
-     * Các endpoint hoàn toàn public: không cần xác thực bất kể HTTP method.
-     * Bao gồm: auth, health check, Swagger UI docs.
+     * Các endpoint công khai: tất cả request đến /v1/public/** đều không cần xác thực.
+     * Bao gồm: auth, health, contact, profile, projects, skills.
      */
     private static final String[] PUBLIC_ENDPOINTS = {
-            "/v1/auth/login",
-            "/v1/health/**",
+            "/v1/public/**",
             "/swagger-ui/**",
             "/swagger-ui.html",
             "/v3/api-docs/**",
@@ -51,23 +49,6 @@ public class SecurityConfig {
             "/webjars/**"
     };
 
-    /**
-     * Các endpoint Portfolio công khai — chỉ cho phép đọc (GET).
-     * Frontend dùng để hiển thị thông tin, không cần đăng nhập.
-     */
-    private static final String[] PUBLIC_GET_ENDPOINTS = {
-            "/v1/profile/**",
-            "/v1/projects/**",
-            "/v1/skills/**"
-    };
-
-    /**
-     * Các endpoint công khai cho phép POST (không cần xác thực).
-     * Contact API cho phép nhà tuyển dụng gửi tin nhắn liên hệ.
-     */
-    private static final String[] PUBLIC_POST_ENDPOINTS = {
-            "/v1/contact"
-    };
 
     /**
      * Các endpoint quản trị — yêu cầu JWT với role ADMIN.
@@ -102,20 +83,15 @@ public class SecurityConfig {
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
 
-                // Cấu hình phân quyền cho các endpoints
+                // Cấu hình phân quyền cho các endpoints theo Role-Based URL Prefix
                 .authorizeHttpRequests(auth -> auth
                         // Permit toàn bộ OPTIONS request — cần thiết cho CORS preflight
                         // Trình duyệt gửi OPTIONS trước mọi cross-origin request có credentials
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
-                        // Các endpoint công khai: auth, health, swagger docs
+                        // Public endpoints: /v1/public/** + Swagger docs — không cần xác thực
                         .requestMatchers(PUBLIC_ENDPOINTS).permitAll()
 
-                        // Portfolio public APIs: chỉ cho phép đọc (GET), không cần xác thực
-                        .requestMatchers(HttpMethod.GET, PUBLIC_GET_ENDPOINTS).permitAll()
-
-                        // Contact API: cho phép POST để nhà tuyển dụng gửi tin nhắn liên hệ
-                        .requestMatchers(HttpMethod.POST, PUBLIC_POST_ENDPOINTS).permitAll()
 
                         // Admin APIs: yêu cầu JWT hợp lệ với role ADMIN
                         .requestMatchers(ADMIN_ENDPOINTS).hasRole("ADMIN")

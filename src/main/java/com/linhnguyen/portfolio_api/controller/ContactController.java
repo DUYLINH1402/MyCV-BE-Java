@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.*;
  * API công khai, không yêu cầu authentication.
  */
 @RestController
-@RequestMapping("/v1/contact")
+@RequestMapping("/v1/public/contact")
 @RequiredArgsConstructor
 @Slf4j
 @Tag(name = "Contact", description = "API gửi tin nhắn liên hệ cho nhà tuyển dụng")

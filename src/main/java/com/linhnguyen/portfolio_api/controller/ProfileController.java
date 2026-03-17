@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
  * Portfolio chỉ có DUY NHẤT 1 profile (chủ sở hữu).
  */
 @RestController
-@RequestMapping("/v1/profile")
+@RequestMapping("/v1/public/profile")
 @RequiredArgsConstructor
 @Slf4j
 @Tag(name = "Profile", description = "API công khai xem thông tin chủ sở hữu Portfolio")

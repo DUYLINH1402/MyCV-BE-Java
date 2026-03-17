@@ -37,8 +37,8 @@ public class OpenApiConfig {
                 .info(new Info()
                         .title("Portfolio API")
                         .description("RESTful API cho Portfolio cá nhân - Quản lý CV và các Dự án. " +
-                                "Các API công khai (/v1/*) không yêu cầu xác thực. " +
-                                "Các API quản lý (/v1/admin/*) yêu cầu JWT Bearer token.")
+                                "Các API công khai (/api/v1/public/*) không yêu cầu xác thực. " +
+                                "Các API quản lý (/api/v1/admin/*) yêu cầu JWT Bearer token.")
                         .version("1.0.0")
                         .contact(new Contact()
                                 .name("Nguyen Duy Linh")
@@ -61,6 +61,6 @@ public class OpenApiConfig {
                                 .scheme("bearer")
                                 .bearerFormat("JWT")
                                 .description("Nhập JWT token để xác thực. " +
-                                        "Token được cấp sau khi đăng nhập thành công qua /v1/auth/login")));
+                                        "Token được cấp sau khi đăng nhập thành công qua /api/v1/public/auth/login")));
     }
 }

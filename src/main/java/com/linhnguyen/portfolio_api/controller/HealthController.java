@@ -18,7 +18,7 @@ import java.util.Map;
  * Dùng cho monitoring và health check từ các hệ thống bên ngoài.
  */
 @RestController
-@RequestMapping("/v1/health")
+@RequestMapping("/v1/public/health")
 @Slf4j
 @Tag(name = "Health", description = "API kiểm tra trạng thái hệ thống")
 public class HealthController {

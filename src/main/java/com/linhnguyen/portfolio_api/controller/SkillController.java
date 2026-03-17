@@ -21,7 +21,7 @@ import java.util.List;
  * Các API quản lý (POST, PUT, DELETE) được tách riêng vào AdminSkillController.
  */
 @RestController
-@RequestMapping("/v1/skills")
+@RequestMapping("/v1/public/skills")
 @RequiredArgsConstructor
 @Slf4j
 @Tag(name = "Skills", description = "API công khai xem kỹ năng")
@@ -40,7 +40,6 @@ public class SkillController {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Lấy danh sách thành công")
     })
     public ResponseEntity<ApiResponse<List<SkillResponseDTO>>> getAllSkills() {
-        log.info("Request lấy danh sách tất cả skills");
         List<SkillResponseDTO> skills = skillService.getAllSkills();
         return ResponseEntity.ok(ApiResponse.success(skills));
     }

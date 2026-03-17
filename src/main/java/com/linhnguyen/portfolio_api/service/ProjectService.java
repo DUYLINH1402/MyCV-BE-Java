@@ -55,7 +55,6 @@ public class ProjectService {
      */
     @Cacheable(value = "projects", key = "'all'")
     public List<ProjectResponseDTO> getAllProjects() {
-        log.info("Đang lấy danh sách tất cả project từ database");
         return projectRepository.findAllByIsDeletedFalseOrderByDisplayOrderAsc()
                 .stream()
                 .map(projectMapper::toResponseDTO)

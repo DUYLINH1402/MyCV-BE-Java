@@ -43,7 +43,6 @@ public class ProfileService {
      */
     @Cacheable(value = "profile", key = OWNER_PROFILE_CACHE_KEY, unless = "#result == null")
     public ProfileResponseDTO getOwnerProfile() {
-        log.info("Đang lấy thông tin profile owner từ database");
         Profile profile = profileRepository.findFirstByIsDeletedFalse()
                 .orElseThrow(() -> new ResourceNotFoundException("Profile chưa được khởi tạo"));
         return profileMapper.toResponseDTO(profile);

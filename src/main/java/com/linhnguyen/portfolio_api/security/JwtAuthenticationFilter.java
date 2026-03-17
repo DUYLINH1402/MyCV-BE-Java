@@ -101,19 +101,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             return true;
         }
 
-        // Skip filter cho các endpoint hoàn toàn public
-        if (path.startsWith("/v1/auth/") ||
-            path.startsWith("/v1/health") ||
+        // Skip filter cho các endpoint hoàn toàn public (role-based URL prefix)
+        if (path.startsWith("/v1/public/") ||
             path.startsWith("/swagger-ui") ||
             path.startsWith("/v3/api-docs")) {
-            return true;
-        }
-
-        // Skip filter cho các GET request đến public portfolio APIs
-        if ("GET".equalsIgnoreCase(method) &&
-            (path.startsWith("/v1/profile") ||
-             path.startsWith("/v1/projects") ||
-             path.startsWith("/v1/skills"))) {
             return true;
         }
 
