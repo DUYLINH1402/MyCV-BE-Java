@@ -12,55 +12,54 @@ import java.time.LocalDateTime;
  */
 @Getter
 @Builder
-@Schema(description = "Thông tin profile của chủ sở hữu Portfolio")
+@Schema(description = "Portfolio owner's profile information")
 public class ProfileResponseDTO {
 
-    @Schema(description = "ID của profile", example = "1")
+    @Schema(description = "Profile ID", example = "1")
     private Long id;
 
-    @Schema(description = "Họ và tên đầy đủ", example = "Nguyễn Duy Linh")
+    @Schema(description = "Full name", example = "Nguyen Duy Linh")
     private String fullName;
 
-    @Schema(description = "Chức danh / Vị trí công việc", example = "Backend Developer")
+    @Schema(description = "Job title / Position", example = "Backend Developer")
     private String title;
 
-    @Schema(description = "Tiểu sử / Giới thiệu bản thân", example = "Passionate about building scalable backend systems...")
+    @Schema(description = "Biography / About me", example = "Passionate about building scalable backend systems...")
     private String bio;
 
-    @Schema(description = "Tóm tắt chuyên môn - Đoạn text ngắn hiển thị ở trang chủ", example = "Backend Developer với kinh nghiệm về Java/Spring Boot")
+    @Schema(description = "Professional summary - Short text displayed on the homepage", example = "Backend Developer with experience in Java/Spring Boot")
     private String professionalSummary;
 
-    @Schema(description = "Số năm kinh nghiệm", example = "3+ Years Experience")
+    @Schema(description = "Years of experience", example = "3+ Years Experience")
     private String experienceYears;
 
-    @Schema(description = "Tổng số dự án đã thực hiện", example = "15+ Projects")
+    @Schema(description = "Total number of projects completed", example = "15+ Projects")
     private String totalProjects;
 
-    @Schema(description = "Tóm tắt học vấn", example = "Computer Science")
+    @Schema(description = "Education summary", example = "Computer Science")
     private String educationSummary;
 
-    @Schema(description = "Tóm tắt chứng chỉ", example = "AWS, Spring Professional")
+    @Schema(description = "Certifications summary", example = "AWS, Spring Professional")
     private String certSummary;
 
-    @Schema(description = "Địa chỉ email liên hệ", example = "duylinh@example.com")
+    @Schema(description = "Contact email address", example = "duylinh@example.com")
     private String email;
 
-    @Schema(description = "Số điện thoại liên hệ", example = "+84 123 456 789")
+    @Schema(description = "Contact phone number", example = "+84 123 456 789")
     private String phoneNumber;
 
-    @Schema(description = "Đường dẫn đến trang GitHub", example = "https://github.com/linhnguyen")
+    @Schema(description = "GitHub profile URL", example = "https://github.com/linhnguyen")
     private String githubUrl;
 
-    @Schema(description = "Đường dẫn đến trang LinkedIn", example = "https://linkedin.com/in/linhnguyen")
+    @Schema(description = "LinkedIn profile URL", example = "https://linkedin.com/in/linhnguyen")
     private String linkedinUrl;
 
-    @Schema(description = "Đường dẫn đến ảnh đại diện", example = "https://example.com/avatar.jpg")
+    @Schema(description = "Avatar image URL", example = "https://example.com/avatar.jpg")
     private String avatarUrl;
 
-    @Schema(description = "Thời điểm tạo bản ghi", example = "2025-01-11T10:30:00")
+    @Schema(description = "Record creation timestamp", example = "2025-01-11T10:30:00")
     private LocalDateTime createdAt;
 
-    @Schema(description = "Thời điểm cập nhật gần nhất", example = "2025-01-11T15:45:00")
+    @Schema(description = "Last updated timestamp", example = "2025-01-11T15:45:00")
     private LocalDateTime updatedAt;
 }
-

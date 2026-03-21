@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/v1/admin/auth")
 @RequiredArgsConstructor
 @Slf4j
-@Tag(name = "Admin - Authentication", description = "API quản lý xác thực dành cho Admin (Yêu cầu xác thực)")
+@Tag(name = "Admin - Authentication", description = "Admin authentication management API (Requires JWT authentication)")
 @SecurityRequirement(name = "bearerAuth")
 public class AdminAuthController {
 
@@ -40,18 +40,17 @@ public class AdminAuthController {
      * @return Thông báo thành công
      */
     @PutMapping("/change-password")
-    @Operation(summary = "Đổi mật khẩu",
-               description = "Admin đổi mật khẩu. Yêu cầu xác thực JWT token.")
+    @Operation(summary = "Change Password",
+               description = "Admin changes their password. Requires JWT token authentication.")
     @ApiResponses(value = {
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Đổi mật khẩu thành công"),
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "Dữ liệu không hợp lệ hoặc mật khẩu xác nhận không khớp"),
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "401", description = "Chưa xác thực hoặc token không hợp lệ")
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Password changed successfully"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "Invalid data or confirmation password does not match"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "401", description = "Not authenticated or invalid token")
     })
     public ResponseEntity<ApiResponse<Void>> changePassword(
             @Valid @RequestBody ChangePasswordDTO request) {
         log.info("[ADMIN] Change password request received");
         authService.changePassword(request);
-        return ResponseEntity.ok(ApiResponse.successMessage("Đổi mật khẩu thành công"));
+        return ResponseEntity.ok(ApiResponse.successMessage("Password changed successfully"));
     }
 }
-

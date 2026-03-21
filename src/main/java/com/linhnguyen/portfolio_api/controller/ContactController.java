@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/v1/public/contact")
 @RequiredArgsConstructor
 @Slf4j
-@Tag(name = "Contact", description = "API gửi tin nhắn liên hệ cho nhà tuyển dụng")
+@Tag(name = "Contact", description = "Public API for sending contact messages to the portfolio owner")
 public class ContactController {
 
     private final ContactService contactService;
@@ -44,23 +44,23 @@ public class ContactController {
      */
     @PostMapping
     @Operation(
-            summary = "Gửi tin nhắn liên hệ",
-            description = "Cho phép nhà tuyển dụng gửi tin nhắn liên hệ đến chủ portfolio. " +
-                    "Tin nhắn sẽ được lưu và gửi email thông báo."
+            summary = "Send a contact message",
+            description = "Allows recruiters to send a contact message to the portfolio owner. " +
+                    "The message will be saved and an email notification will be sent."
     )
     @ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(
                     responseCode = "201",
-                    description = "Gửi tin nhắn thành công",
+                    description = "Message sent successfully",
                     content = @Content(schema = @Schema(implementation = ContactResponseDTO.class))
             ),
             @io.swagger.v3.oas.annotations.responses.ApiResponse(
                     responseCode = "400",
-                    description = "Dữ liệu không hợp lệ"
+                    description = "Invalid request data"
             ),
             @io.swagger.v3.oas.annotations.responses.ApiResponse(
                     responseCode = "429",
-                    description = "Gửi quá nhiều request (spam protection)"
+                    description = "Too many requests (spam protection)"
             )
     })
     public ResponseEntity<ApiResponse<ContactResponseDTO>> submitContact(
@@ -68,13 +68,13 @@ public class ContactController {
             HttpServletRequest request
     ) {
         String clientIp = getClientIp(request);
-        log.info("Nhận request gửi tin nhắn liên hệ từ IP: {}", clientIp);
+        log.info("Received contact message request from IP: {}", clientIp);
 
         ContactResponseDTO response = contactService.submitContactMessage(requestDTO, clientIp);
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(ApiResponse.success("Tin nhắn đã được gửi thành công", response));
+                .body(ApiResponse.success("Message sent successfully", response));
     }
 
     /**
@@ -86,7 +86,7 @@ public class ContactController {
     private String getClientIp(HttpServletRequest request) {
         String xForwardedFor = request.getHeader("X-Forwarded-For");
         if (xForwardedFor != null && !xForwardedFor.isEmpty()) {
-            // X-Forwarded-For có thể chứa nhiều IP, lấy IP đầu tiên (client thực)
+            // X-Forwarded-For may contain multiple IPs, take the first one (actual client)
             return xForwardedFor.split(",")[0].trim();
         }
 
@@ -98,4 +98,3 @@ public class ContactController {
         return request.getRemoteAddr();
     }
 }
-

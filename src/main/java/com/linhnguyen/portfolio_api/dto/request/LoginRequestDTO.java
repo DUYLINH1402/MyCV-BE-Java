@@ -19,17 +19,16 @@ import lombok.Setter;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Schema(description = "Thông tin đăng nhập Admin")
+@Schema(description = "Admin login credentials")
 public class LoginRequestDTO {
 
-    @Schema(description = "Email đăng nhập (sử dụng email trong profile)", example = "admin@example.com", requiredMode = Schema.RequiredMode.REQUIRED)
-    @NotBlank(message = "Email không được để trống")
-    @Email(message = "Email không hợp lệ")
+    @Schema(description = "Login email (uses the profile owner's email)", example = "admin@example.com", requiredMode = Schema.RequiredMode.REQUIRED)
+    @NotBlank(message = "Email is required")
+    @Email(message = "Invalid email format")
     private String email;
 
-    @Schema(description = "Mật khẩu đăng nhập", example = "password123", requiredMode = Schema.RequiredMode.REQUIRED)
-    @NotBlank(message = "Password không được để trống")
-    @Size(min = 6, max = 100, message = "Password phải từ 6-100 ký tự")
+    @Schema(description = "Login password", example = "password123", requiredMode = Schema.RequiredMode.REQUIRED)
+    @NotBlank(message = "Password is required")
+    @Size(min = 6, max = 100, message = "Password must be between 6 and 100 characters")
     private String password;
 }
-

@@ -17,25 +17,24 @@ import lombok.Setter;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Schema(description = "Response sau khi đăng nhập thành công")
+@Schema(description = "Successful login response")
 public class LoginResponseDTO {
 
-    @Schema(description = "JWT Access Token. Client gửi token này trong header Authorization: Bearer <token>",
+    @Schema(description = "JWT Access Token. Send this token in the Authorization header: Bearer <token>",
             example = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...")
     @JsonProperty("access_token")
     private String accessToken;
 
-    @Schema(description = "Loại token (luôn là Bearer)", example = "Bearer")
+    @Schema(description = "Token type (always Bearer)", example = "Bearer")
     @JsonProperty("token_type")
     @Builder.Default
     private String tokenType = "Bearer";
 
-    @Schema(description = "Thời gian token hết hạn (tính bằng giây)", example = "86400")
+    @Schema(description = "Token expiration time (in seconds)", example = "86400")
     @JsonProperty("expires_in")
     private Long expiresIn;
 
-    @Schema(description = "Tên đầy đủ của người đăng nhập", example = "Nguyễn Duy Linh")
+    @Schema(description = "Full name of the authenticated user", example = "Nguyen Duy Linh")
     @JsonProperty("full_name")
     private String fullName;
 }
-

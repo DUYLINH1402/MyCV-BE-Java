@@ -18,61 +18,61 @@ import java.util.Map;
 @Getter
 @Setter
 @Builder
-@Schema(description = "Thông tin để tạo mới Project")
+@Schema(description = "New project creation payload")
 public class ProjectCreateDTO {
 
-    @Schema(description = "Tiêu đề của dự án", example = "Portfolio API", requiredMode = Schema.RequiredMode.REQUIRED)
-    @NotBlank(message = "Tiêu đề là bắt buộc")
-    @Size(max = 255, message = "Tiêu đề không được vượt quá 255 ký tự")
+    @Schema(description = "Project title", example = "Portfolio API", requiredMode = Schema.RequiredMode.REQUIRED)
+    @NotBlank(message = "Title is required")
+    @Size(max = 255, message = "Title must not exceed 255 characters")
     private String title;
 
-    @Schema(description = "Mô tả ngắn gọn về dự án (hiển thị ở danh sách)", example = "RESTful API cho Portfolio cá nhân")
-    @Size(max = 500, message = "Mô tả ngắn không được vượt quá 500 ký tự")
+    @Schema(description = "Short description of the project (displayed in list view)", example = "RESTful API for Personal Portfolio")
+    @Size(max = 500, message = "Short description must not exceed 500 characters")
     private String shortDescription;
 
-    @Schema(description = "Mô tả chi tiết đầy đủ về dự án (dạng JSON). Có thể chứa cấu trúc phức tạp như: sections, bullet points, highlights...")
+    @Schema(description = "Full detailed description of the project (JSON format). Can contain complex structures like: sections, bullet points, highlights...")
     private Map<String, Object> fullDescription;
 
-    @Schema(description = "Đường dẫn đến hình ảnh thumbnail", example = "https://example.com/project-image.jpg")
-    @Size(max = 255, message = "Image URL không được vượt quá 255 ký tự")
+    @Schema(description = "Thumbnail image URL", example = "https://example.com/project-image.jpg")
+    @Size(max = 255, message = "Image URL must not exceed 255 characters")
     private String imageUrl;
 
-    @Schema(description = "Đường dẫn đến trang demo trực tiếp", example = "https://demo.example.com")
-    @Size(max = 255, message = "Demo URL không được vượt quá 255 ký tự")
+    @Schema(description = "Live demo URL", example = "https://demo.example.com")
+    @Size(max = 255, message = "Demo URL must not exceed 255 characters")
     private String demoUrl;
 
-    @Schema(description = "Đường dẫn đến GitHub repository", example = "https://github.com/linhnguyen/portfolio-api")
-    @Size(max = 255, message = "GitHub URL không được vượt quá 255 ký tự")
+    @Schema(description = "GitHub repository URL", example = "https://github.com/linhnguyen/portfolio-api")
+    @Size(max = 255, message = "GitHub URL must not exceed 255 characters")
     private String githubUrl;
 
-    @Schema(description = "Đường dẫn đến bài review/blog về dự án", example = "https://blog.example.com/portfolio-api")
-    @Size(max = 500, message = "Review URL không được vượt quá 500 ký tự")
+    @Schema(description = "Project review/blog post URL", example = "https://blog.example.com/portfolio-api")
+    @Size(max = 500, message = "Review URL must not exceed 500 characters")
     private String reviewUrl;
 
-    @Schema(description = "Đường dẫn đến video demo/giới thiệu dự án (YouTube, Vimeo, v.v.)", example = "https://youtube.com/watch?v=abc123")
-    @Size(max = 500, message = "Video URL không được vượt quá 500 ký tự")
+    @Schema(description = "Project demo/introduction video URL (YouTube, Vimeo, etc.)", example = "https://youtube.com/watch?v=abc123")
+    @Size(max = 500, message = "Video URL must not exceed 500 characters")
     private String videoUrl;
 
-    @Schema(description = "Danh sách hình ảnh gallery của dự án (screenshot, demo, v.v.)", example = "[\"https://example.com/img1.jpg\", \"https://example.com/img2.jpg\"]")
+    @Schema(description = "Project gallery images (screenshots, demos, etc.)", example = "[\"https://example.com/img1.jpg\", \"https://example.com/img2.jpg\"]")
     private List<String> gallery;
 
-    @Schema(description = "Danh sách công nghệ sử dụng trong dự án", example = "[\"Java\", \"Spring Boot\", \"PostgreSQL\"]")
+    @Schema(description = "Technologies used in the project", example = "[\"Java\", \"Spring Boot\", \"PostgreSQL\"]")
     private List<String> technologies;
 
-    @Schema(description = "Phân loại dự án", example = "Backend", allowableValues = {"Web", "Mobile", "Backend", "Fullstack"})
-    @Size(max = 100, message = "Category không được vượt quá 100 ký tự")
+    @Schema(description = "Project category", example = "Backend", allowableValues = {"Web", "Mobile", "Backend", "Fullstack"})
+    @Size(max = 100, message = "Category must not exceed 100 characters")
     private String category;
 
-    @Schema(description = "Đánh dấu dự án nổi bật", example = "true")
+    @Schema(description = "Mark project as featured", example = "true")
     private Boolean isFeatured;
 
-    @Schema(description = "Thứ tự hiển thị (số nhỏ hiển thị trước)", example = "1")
+    @Schema(description = "Display order (lower number appears first)", example = "1")
     private Integer displayOrder;
 
-    @Schema(description = "Trạng thái dự án", example = "completed", allowableValues = {"completed", "in_progress", "archived"})
-    @Size(max = 50, message = "Status không được vượt quá 50 ký tự")
+    @Schema(description = "Project status", example = "completed", allowableValues = {"completed", "in_progress", "archived"})
+    @Size(max = 50, message = "Status must not exceed 50 characters")
     private String status;
 
-    @Schema(description = "Ngày hoàn thành/bắt đầu dự án", example = "2025-01-01")
+    @Schema(description = "Project completion/start date", example = "2025-01-01")
     private LocalDate projectDate;
 }

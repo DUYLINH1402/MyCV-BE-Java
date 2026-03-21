@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/v1/public/auth")
 @RequiredArgsConstructor
 @Slf4j
-@Tag(name = "Authentication", description = "API xác thực dành cho Admin (Endpoint ẩn)")
+@Tag(name = "Authentication", description = "Authentication API for Admin (Hidden endpoint)")
 public class AuthController {
 
     private final AuthService authService;
@@ -45,18 +45,17 @@ public class AuthController {
      * @return JWT token và thông tin liên quan
      */
     @PostMapping("/login")
-    @Operation(summary = "Đăng nhập Admin",
-               description = "Xác thực Admin bằng email và password, trả về JWT token. Endpoint này được ẩn trên giao diện người dùng.")
+    @Operation(summary = "Admin Login",
+               description = "Authenticate Admin with email and password, returns a JWT token. This endpoint is hidden on the user interface.")
     @ApiResponses(value = {
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Đăng nhập thành công"),
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "Thông tin đăng nhập không hợp lệ"),
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "401", description = "Email hoặc mật khẩu không đúng")
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Login successful"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "Invalid login credentials"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "401", description = "Incorrect email or password")
     })
     public ResponseEntity<ApiResponse<LoginResponseDTO>> login(
             @Valid @RequestBody LoginRequestDTO request) {
         log.info("Login request received");
         LoginResponseDTO response = authService.login(request);
-        return ResponseEntity.ok(ApiResponse.success("Đăng nhập thành công", response));
+        return ResponseEntity.ok(ApiResponse.success("Login successful", response));
     }
 }
-

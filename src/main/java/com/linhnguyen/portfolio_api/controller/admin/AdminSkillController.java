@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/v1/admin/skills")
 @RequiredArgsConstructor
 @Slf4j
-@Tag(name = "Admin - Skills", description = "API quản lý skill dành cho Admin (Yêu cầu xác thực)")
+@Tag(name = "Admin - Skills", description = "Admin skill management API (Requires JWT authentication)")
 @SecurityRequirement(name = "bearerAuth")
 public class AdminSkillController {
 
@@ -40,15 +40,15 @@ public class AdminSkillController {
      * @return Thông tin skill vừa tạo với status 201 Created
      */
     @PostMapping
-    @Operation(summary = "Tạo skill mới", description = "Admin tạo mới một skill")
+    @Operation(summary = "Create Skill", description = "Admin creates a new skill")
     @ApiResponses(value = {
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "201", description = "Tạo skill thành công"),
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "Dữ liệu không hợp lệ hoặc skill đã tồn tại"),
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "401", description = "Chưa xác thực hoặc token không hợp lệ")
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "201", description = "Skill created successfully"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "Invalid data or skill already exists"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "401", description = "Not authenticated or invalid token")
     })
     public ResponseEntity<ApiResponse<SkillResponseDTO>> createSkill(
             @Valid @RequestBody SkillCreateDTO request) {
-        log.info("[ADMIN] Request tạo skill mới");
+        log.info("[ADMIN] Request to create new skill");
         SkillResponseDTO skill = skillService.createSkill(request);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(ApiResponse.created(skill));
@@ -63,20 +63,20 @@ public class AdminSkillController {
      * @return Thông tin skill sau khi cập nhật
      */
     @PutMapping("/{id}")
-    @Operation(summary = "Cập nhật skill", description = "Admin cập nhật thông tin skill theo ID")
+    @Operation(summary = "Update Skill", description = "Admin updates skill information by ID")
     @ApiResponses(value = {
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Cập nhật skill thành công"),
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "Dữ liệu không hợp lệ"),
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "401", description = "Chưa xác thực hoặc token không hợp lệ"),
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "404", description = "Không tìm thấy skill")
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Skill updated successfully"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "Invalid request data"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "401", description = "Not authenticated or invalid token"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "404", description = "Skill not found")
     })
     public ResponseEntity<ApiResponse<SkillResponseDTO>> updateSkill(
-            @Parameter(description = "ID của skill", example = "1", required = true)
+            @Parameter(description = "Skill ID", example = "1", required = true)
             @PathVariable Long id,
             @Valid @RequestBody SkillUpdateDTO request) {
-        log.info("[ADMIN] Request cập nhật skill với ID: {}", id);
+        log.info("[ADMIN] Request to update skill with ID: {}", id);
         SkillResponseDTO skill = skillService.updateSkill(id, request);
-        return ResponseEntity.ok(ApiResponse.success("Cập nhật skill thành công", skill));
+        return ResponseEntity.ok(ApiResponse.success("Skill updated successfully", skill));
     }
 
     /**
@@ -87,18 +87,17 @@ public class AdminSkillController {
      * @return Thông báo xóa thành công
      */
     @DeleteMapping("/{id}")
-    @Operation(summary = "Xóa skill", description = "Admin xóa mềm skill theo ID")
+    @Operation(summary = "Delete Skill", description = "Admin soft-deletes a skill by ID")
     @ApiResponses(value = {
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Xóa skill thành công"),
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "401", description = "Chưa xác thực hoặc token không hợp lệ"),
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "404", description = "Không tìm thấy skill")
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Skill deleted successfully"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "401", description = "Not authenticated or invalid token"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "404", description = "Skill not found")
     })
     public ResponseEntity<ApiResponse<Void>> deleteSkill(
-            @Parameter(description = "ID của skill", example = "1", required = true)
+            @Parameter(description = "Skill ID", example = "1", required = true)
             @PathVariable Long id) {
-        log.info("[ADMIN] Request xóa skill với ID: {}", id);
+        log.info("[ADMIN] Request to delete skill with ID: {}", id);
         skillService.deleteSkill(id);
-        return ResponseEntity.ok(ApiResponse.successMessage("Xóa skill thành công"));
+        return ResponseEntity.ok(ApiResponse.successMessage("Skill deleted successfully"));
     }
 }
-

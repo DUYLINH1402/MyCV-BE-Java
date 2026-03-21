@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/v1/admin/projects")
 @RequiredArgsConstructor
 @Slf4j
-@Tag(name = "Admin - Projects", description = "API quản lý project dành cho Admin (Yêu cầu xác thực)")
+@Tag(name = "Admin - Projects", description = "Admin project management API (Requires JWT authentication)")
 @SecurityRequirement(name = "bearerAuth")
 public class AdminProjectController {
 
@@ -40,15 +40,15 @@ public class AdminProjectController {
      * @return Thông tin project vừa tạo với status 201 Created
      */
     @PostMapping
-    @Operation(summary = "Tạo project mới", description = "Admin tạo mới một project")
+    @Operation(summary = "Create Project", description = "Admin creates a new project")
     @ApiResponses(value = {
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "201", description = "Tạo project thành công"),
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "Dữ liệu không hợp lệ"),
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "401", description = "Chưa xác thực hoặc token không hợp lệ")
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "201", description = "Project created successfully"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "Invalid request data"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "401", description = "Not authenticated or invalid token")
     })
     public ResponseEntity<ApiResponse<ProjectResponseDTO>> createProject(
             @Valid @RequestBody ProjectCreateDTO request) {
-        log.info("[ADMIN] Request tạo project mới");
+        log.info("[ADMIN] Request to create new project");
         ProjectResponseDTO project = projectService.createProject(request);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(ApiResponse.created(project));
@@ -63,20 +63,20 @@ public class AdminProjectController {
      * @return Thông tin project sau khi cập nhật
      */
     @PutMapping("/{id}")
-    @Operation(summary = "Cập nhật project", description = "Admin cập nhật thông tin project theo ID")
+    @Operation(summary = "Update Project", description = "Admin updates project information by ID")
     @ApiResponses(value = {
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Cập nhật project thành công"),
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "Dữ liệu không hợp lệ"),
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "401", description = "Chưa xác thực hoặc token không hợp lệ"),
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "404", description = "Không tìm thấy project")
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Project updated successfully"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "Invalid request data"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "401", description = "Not authenticated or invalid token"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "404", description = "Project not found")
     })
     public ResponseEntity<ApiResponse<ProjectResponseDTO>> updateProject(
-            @Parameter(description = "ID của project", example = "1", required = true)
+            @Parameter(description = "Project ID", example = "1", required = true)
             @PathVariable Long id,
             @Valid @RequestBody ProjectUpdateDTO request) {
-        log.info("[ADMIN] Request cập nhật project với ID: {}", id);
+        log.info("[ADMIN] Request to update project with ID: {}", id);
         ProjectResponseDTO project = projectService.updateProject(id, request);
-        return ResponseEntity.ok(ApiResponse.success("Cập nhật project thành công", project));
+        return ResponseEntity.ok(ApiResponse.success("Project updated successfully", project));
     }
 
     /**
@@ -87,18 +87,17 @@ public class AdminProjectController {
      * @return Thông báo xóa thành công
      */
     @DeleteMapping("/{id}")
-    @Operation(summary = "Xóa project", description = "Admin xóa mềm project theo ID")
+    @Operation(summary = "Delete Project", description = "Admin soft-deletes a project by ID")
     @ApiResponses(value = {
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Xóa project thành công"),
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "401", description = "Chưa xác thực hoặc token không hợp lệ"),
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "404", description = "Không tìm thấy project")
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Project deleted successfully"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "401", description = "Not authenticated or invalid token"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "404", description = "Project not found")
     })
     public ResponseEntity<ApiResponse<Void>> deleteProject(
-            @Parameter(description = "ID của project", example = "1", required = true)
+            @Parameter(description = "Project ID", example = "1", required = true)
             @PathVariable Long id) {
-        log.info("[ADMIN] Request xóa project với ID: {}", id);
+        log.info("[ADMIN] Request to delete project with ID: {}", id);
         projectService.deleteProject(id);
-        return ResponseEntity.ok(ApiResponse.successMessage("Xóa project thành công"));
+        return ResponseEntity.ok(ApiResponse.successMessage("Project deleted successfully"));
     }
 }
-

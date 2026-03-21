@@ -35,32 +35,29 @@ public class OpenApiConfig {
     public OpenAPI portfolioOpenAPI() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("Portfolio API")
-                        .description("RESTful API cho Portfolio cá nhân - Quản lý CV và các Dự án. " +
-                                "Các API công khai (/api/v1/public/*) không yêu cầu xác thực. " +
-                                "Các API quản lý (/api/v1/admin/*) yêu cầu JWT Bearer token.")
+                        .title("NGUYEN DUY LINH Portfolio API")
+                        .description("RESTful API for Personal Portfolio - Manage CV, Projects, Skills & Contact. " +
+                                "Public APIs (/api/v1/public/*) do not require authentication. " +
+                                "Admin APIs (/api/v1/admin/*) require a JWT Bearer token.")
                         .version("1.0.0")
                         .contact(new Contact()
                                 .name("Nguyen Duy Linh")
                                 .email("duylinh63b5@gmail.com")
-                                .url("https://github.com/linhnguyen"))
-                        .license(new License()
-                                .name("MIT License")
-                                .url("https://opensource.org/licenses/MIT")))
+                                .url("portfolio-f2abd.web.app")))
                 .servers(List.of(
                         new Server()
                                 .url("http://localhost:" + serverPort + "/api")
-                                .description("Server Development (Local)"),
+                                .description("Development Server (Local)"),
                         new Server()
-                                .url("https://api.linhnguyen.dev")
-                                .description("Server Production")
+                                .url("https://mycv-api.com/")
+                                .description("Production Server")
                 ))
                 .components(new Components()
                         .addSecuritySchemes("bearerAuth", new SecurityScheme()
                                 .type(SecurityScheme.Type.HTTP)
                                 .scheme("bearer")
                                 .bearerFormat("JWT")
-                                .description("Nhập JWT token để xác thực. " +
-                                        "Token được cấp sau khi đăng nhập thành công qua /api/v1/public/auth/login")));
+                                .description("Enter your JWT token to authenticate. " +
+                                        "Token is issued after a successful login via /api/v1/public/auth/login")));
     }
 }

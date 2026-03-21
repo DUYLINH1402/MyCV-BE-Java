@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/v1/public/profile")
 @RequiredArgsConstructor
 @Slf4j
-@Tag(name = "Profile", description = "API công khai xem thông tin chủ sở hữu Portfolio")
+@Tag(name = "Profile", description = "Public API to view portfolio owner's personal information")
 public class ProfileController {
 
     private final ProfileService profileService;
@@ -29,17 +29,16 @@ public class ProfileController {
      * Lấy thông tin profile của chủ sở hữu Portfolio.
      * Đây là API công khai, không cần xác thực.
      *
-     * @return Thông tin profile
+     * @return Profile information
      */
     @GetMapping
-    @Operation(summary = "Lấy thông tin Profile", description = "Lấy thông tin profile của chủ sở hữu Portfolio. Không yêu cầu xác thực.")
+    @Operation(summary = "Get Profile", description = "Retrieve the portfolio owner's profile information. No authentication required.")
     @ApiResponses(value = {
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Lấy profile thành công"),
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "404", description = "Không tìm thấy profile")
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Profile retrieved successfully"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "404", description = "Profile not found")
     })
     public ResponseEntity<ApiResponse<ProfileResponseDTO>> getProfile() {
         ProfileResponseDTO profile = profileService.getOwnerProfile();
         return ResponseEntity.ok(ApiResponse.success(profile));
     }
 }
-

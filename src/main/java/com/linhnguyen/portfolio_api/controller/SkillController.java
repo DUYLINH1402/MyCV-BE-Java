@@ -24,7 +24,7 @@ import java.util.List;
 @RequestMapping("/v1/public/skills")
 @RequiredArgsConstructor
 @Slf4j
-@Tag(name = "Skills", description = "API công khai xem kỹ năng")
+@Tag(name = "Skills", description = "Public API to view portfolio skills")
 public class SkillController {
 
     private final SkillService skillService;
@@ -35,9 +35,9 @@ public class SkillController {
      * @return Danh sách skill đang hoạt động
      */
     @GetMapping
-    @Operation(summary = "Lấy tất cả skills", description = "Lấy danh sách tất cả skill đang hoạt động. Không yêu cầu xác thực.")
+    @Operation(summary = "Get All Skills", description = "Retrieve all active skills. No authentication required.")
     @ApiResponses(value = {
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Lấy danh sách thành công")
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Skills retrieved successfully")
     })
     public ResponseEntity<ApiResponse<List<SkillResponseDTO>>> getAllSkills() {
         List<SkillResponseDTO> skills = skillService.getAllSkills();
@@ -51,15 +51,15 @@ public class SkillController {
      * @return Thông tin skill
      */
     @GetMapping("/{id}")
-    @Operation(summary = "Lấy skill theo ID", description = "Lấy thông tin chi tiết của skill theo ID")
+    @Operation(summary = "Get Skill by ID", description = "Retrieve detailed skill information by ID")
     @ApiResponses(value = {
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Lấy skill thành công"),
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "404", description = "Không tìm thấy skill")
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Skill retrieved successfully"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "404", description = "Skill not found")
     })
     public ResponseEntity<ApiResponse<SkillResponseDTO>> getSkillById(
-            @Parameter(description = "ID của skill", example = "1", required = true)
+            @Parameter(description = "Skill ID", example = "1", required = true)
             @PathVariable Long id) {
-        log.info("Request lấy skill với ID: {}", id);
+        log.info("Request to get skill with ID: {}", id);
         SkillResponseDTO skill = skillService.getSkillById(id);
         return ResponseEntity.ok(ApiResponse.success(skill));
     }
@@ -71,14 +71,14 @@ public class SkillController {
      * @return Danh sách skill thuộc danh mục đó
      */
     @GetMapping("/category/{category}")
-    @Operation(summary = "Lấy skills theo danh mục", description = "Lấy danh sách skill theo danh mục phân loại")
+    @Operation(summary = "Get Skills by Category", description = "Retrieve skills filtered by category")
     @ApiResponses(value = {
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Lấy danh sách thành công")
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Skills retrieved successfully")
     })
     public ResponseEntity<ApiResponse<List<SkillResponseDTO>>> getSkillsByCategory(
-            @Parameter(description = "Danh mục kỹ năng (FRONTEND, BACKEND, DATABASE, TOOLS, DEVOPS, OTHER)", example = "BACKEND", required = true)
+            @Parameter(description = "Skill category (FRONTEND, BACKEND, DATABASE, TOOLS, DEVOPS, OTHER)", example = "BACKEND", required = true)
             @PathVariable SkillCategory category) {
-        log.info("Request lấy skills theo danh mục: {}", category);
+        log.info("Request to get skills by category: {}", category);
         List<SkillResponseDTO> skills = skillService.getSkillsByCategory(category);
         return ResponseEntity.ok(ApiResponse.success(skills));
     }

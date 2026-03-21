@@ -19,51 +19,50 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Schema(description = "Request gửi tin nhắn liên hệ từ nhà tuyển dụng")
+@Schema(description = "Contact message request from recruiters or visitors")
 public class ContactRequestDTO {
 
-    @NotBlank(message = "Tên không được để trống")
-    @Size(min = 2, max = 100, message = "Tên phải từ 2-100 ký tự")
+    @NotBlank(message = "Name is required")
+    @Size(min = 2, max = 100, message = "Name must be between 2 and 100 characters")
     @Schema(
-            description = "Tên người gửi",
-            example = "Nguyễn Văn A",
+            description = "Sender's full name",
+            example = "John Smith",
             minLength = 2,
             maxLength = 100,
             requiredMode = Schema.RequiredMode.REQUIRED
     )
     private String name;
 
-    @NotBlank(message = "Email không được để trống")
-    @Email(message = "Email không hợp lệ")
-    @Size(max = 255, message = "Email không được quá 255 ký tự")
+    @NotBlank(message = "Email is required")
+    @Email(message = "Invalid email format")
+    @Size(max = 255, message = "Email must not exceed 255 characters")
     @Schema(
-            description = "Email người gửi để liên hệ lại",
+            description = "Sender's email address for follow-up",
             example = "recruiter@company.com",
             maxLength = 255,
             requiredMode = Schema.RequiredMode.REQUIRED
     )
     private String email;
 
-    @NotBlank(message = "Tiêu đề không được để trống")
-    @Size(min = 5, max = 255, message = "Tiêu đề phải từ 5-255 ký tự")
+    @NotBlank(message = "Subject is required")
+    @Size(min = 5, max = 255, message = "Subject must be between 5 and 255 characters")
     @Schema(
-            description = "Tiêu đề tin nhắn",
-            example = "Lời mời phỏng vấn vị trí Backend Developer",
+            description = "Message subject",
+            example = "Interview Invitation for Backend Developer Position",
             minLength = 5,
             maxLength = 255,
             requiredMode = Schema.RequiredMode.REQUIRED
     )
     private String subject;
 
-    @NotBlank(message = "Nội dung tin nhắn không được để trống")
-    @Size(min = 10, max = 5000, message = "Nội dung phải từ 10-5000 ký tự")
+    @NotBlank(message = "Message content is required")
+    @Size(min = 10, max = 5000, message = "Message must be between 10 and 5000 characters")
     @Schema(
-            description = "Nội dung tin nhắn chi tiết",
-            example = "Chào Linh, chúng tôi đang tìm kiếm Backend Developer và profile của bạn rất phù hợp...",
+            description = "Detailed message content",
+            example = "Hi Linh, we are looking for a Backend Developer and your profile is a great fit...",
             minLength = 10,
             maxLength = 5000,
             requiredMode = Schema.RequiredMode.REQUIRED
     )
     private String message;
 }
-

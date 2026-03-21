@@ -17,25 +17,24 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Schema(description = "Response sau khi gửi tin nhắn liên hệ")
+@Schema(description = "Response after sending a contact message")
 public class ContactResponseDTO {
 
-    @Schema(description = "ID của tin nhắn", example = "1")
+    @Schema(description = "Message ID", example = "1")
     private Long id;
 
-    @Schema(description = "Tên người gửi", example = "Nguyễn Văn A")
+    @Schema(description = "Sender's name", example = "John Smith")
     private String senderName;
 
-    @Schema(description = "Email người gửi", example = "recruiter@company.com")
+    @Schema(description = "Sender's email", example = "recruiter@company.com")
     private String senderEmail;
 
-    @Schema(description = "Tiêu đề tin nhắn", example = "Lời mời phỏng vấn")
+    @Schema(description = "Message subject", example = "Interview Invitation")
     private String subject;
 
-    @Schema(description = "Thời điểm gửi tin nhắn", example = "2025-01-15T10:30:00")
+    @Schema(description = "Timestamp when the message was sent", example = "2025-01-15T10:30:00")
     private LocalDateTime createdAt;
 
-    @Schema(description = "Thông báo xác nhận", example = "Tin nhắn của bạn đã được gửi thành công!")
+    @Schema(description = "Confirmation message", example = "Your message has been sent successfully!")
     private String confirmationMessage;
 }
-

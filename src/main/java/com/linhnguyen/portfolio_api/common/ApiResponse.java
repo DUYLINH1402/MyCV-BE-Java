@@ -20,19 +20,19 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@Schema(description = "Response chuẩn cho tất cả API")
+@Schema(description = "Standard API response wrapper")
 public class ApiResponse<T> {
 
     @Schema(description = "HTTP status code", example = "200")
     private int status;
 
-    @Schema(description = "Thông báo kết quả", example = "Success")
+    @Schema(description = "Response message", example = "Success")
     private String message;
 
-    @Schema(description = "Dữ liệu trả về")
+    @Schema(description = "Response data payload")
     private T data;
 
-    @Schema(description = "Thời điểm xử lý request", example = "2025-01-11T10:30:00")
+    @Schema(description = "Request processing timestamp", example = "2025-01-11T10:30:00")
     private LocalDateTime timestamp;
 
     /**

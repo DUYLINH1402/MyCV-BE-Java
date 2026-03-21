@@ -14,59 +14,58 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-@Schema(description = "Thông tin cập nhật Profile (tất cả trường đều optional)")
+@Schema(description = "Profile update payload (all fields are optional)")
 public class ProfileUpdateDTO {
 
-    @Schema(description = "Họ và tên đầy đủ", example = "Nguyễn Duy Linh")
-    @Size(max = 255, message = "Họ tên không được vượt quá 255 ký tự")
+    @Schema(description = "Full name", example = "Nguyen Duy Linh")
+    @Size(max = 255, message = "Full name must not exceed 255 characters")
     private String fullName;
 
-    @Schema(description = "Chức danh / Vị trí công việc", example = "Backend Developer")
-    @Size(max = 255, message = "Chức danh không được vượt quá 255 ký tự")
+    @Schema(description = "Job title / Position", example = "Backend Developer")
+    @Size(max = 255, message = "Title must not exceed 255 characters")
     private String title;
 
-    @Schema(description = "Tiểu sử / Giới thiệu bản thân", example = "Passionate about building scalable backend systems...")
+    @Schema(description = "Biography / About me", example = "Passionate about building scalable backend systems...")
     private String bio;
 
-    @Schema(description = "Tóm tắt chuyên môn - Đoạn text ngắn hiển thị ở trang chủ", example = "Backend Developer với kinh nghiệm về Java/Spring Boot")
-    @Size(max = 500, message = "Tóm tắt chuyên môn không được vượt quá 500 ký tự")
+    @Schema(description = "Professional summary - Short text displayed on the homepage", example = "Backend Developer with experience in Java/Spring Boot")
+    @Size(max = 500, message = "Professional summary must not exceed 500 characters")
     private String professionalSummary;
 
-    @Schema(description = "Số năm kinh nghiệm", example = "3+ Years Experience")
-    @Size(max = 50, message = "Số năm kinh nghiệm không được vượt quá 50 ký tự")
+    @Schema(description = "Years of experience", example = "3+ Years Experience")
+    @Size(max = 50, message = "Experience years must not exceed 50 characters")
     private String experienceYears;
 
-    @Schema(description = "Tổng số dự án đã thực hiện", example = "15+ Projects")
-    @Size(max = 50, message = "Tổng số dự án không được vượt quá 50 ký tự")
+    @Schema(description = "Total number of projects completed", example = "15+ Projects")
+    @Size(max = 50, message = "Total projects must not exceed 50 characters")
     private String totalProjects;
 
-    @Schema(description = "Tóm tắt học vấn", example = "Computer Science")
-    @Size(max = 255, message = "Tóm tắt học vấn không được vượt quá 255 ký tự")
+    @Schema(description = "Education summary", example = "Computer Science")
+    @Size(max = 255, message = "Education summary must not exceed 255 characters")
     private String educationSummary;
 
-    @Schema(description = "Tóm tắt chứng chỉ", example = "AWS, Spring Professional")
-    @Size(max = 255, message = "Tóm tắt chứng chỉ không được vượt quá 255 ký tự")
+    @Schema(description = "Certifications summary", example = "AWS, Spring Professional")
+    @Size(max = 255, message = "Certifications summary must not exceed 255 characters")
     private String certSummary;
 
-    @Schema(description = "Địa chỉ email liên hệ", example = "duylinh@example.com")
-    @Email(message = "Email không hợp lệ")
-    @Size(max = 100, message = "Email không được vượt quá 100 ký tự")
+    @Schema(description = "Contact email address", example = "duylinh@example.com")
+    @Email(message = "Invalid email format")
+    @Size(max = 100, message = "Email must not exceed 100 characters")
     private String email;
 
-    @Schema(description = "Số điện thoại liên hệ", example = "+84 123 456 789")
-    @Size(max = 20, message = "Số điện thoại không được vượt quá 20 ký tự")
+    @Schema(description = "Contact phone number", example = "+84 123 456 789")
+    @Size(max = 20, message = "Phone number must not exceed 20 characters")
     private String phoneNumber;
 
-    @Schema(description = "Đường dẫn đến trang GitHub", example = "https://github.com/linhnguyen")
-    @Size(max = 255, message = "GitHub URL không được vượt quá 255 ký tự")
+    @Schema(description = "GitHub profile URL", example = "https://github.com/linhnguyen")
+    @Size(max = 255, message = "GitHub URL must not exceed 255 characters")
     private String githubUrl;
 
-    @Schema(description = "Đường dẫn đến trang LinkedIn", example = "https://linkedin.com/in/linhnguyen")
-    @Size(max = 255, message = "LinkedIn URL không được vượt quá 255 ký tự")
+    @Schema(description = "LinkedIn profile URL", example = "https://linkedin.com/in/linhnguyen")
+    @Size(max = 255, message = "LinkedIn URL must not exceed 255 characters")
     private String linkedinUrl;
 
-    @Schema(description = "Đường dẫn đến ảnh đại diện", example = "https://example.com/avatar.jpg")
-    @Size(max = 255, message = "Avatar URL không được vượt quá 255 ký tự")
+    @Schema(description = "Avatar image URL", example = "https://example.com/avatar.jpg")
+    @Size(max = 255, message = "Avatar URL must not exceed 255 characters")
     private String avatarUrl;
 }
-

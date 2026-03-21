@@ -16,20 +16,20 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-@Schema(description = "Thông tin cập nhật Skill (tất cả trường đều optional)")
+@Schema(description = "Skill update payload (all fields are optional)")
 public class SkillUpdateDTO {
 
-    @Schema(description = "Tên của kỹ năng", example = "Java")
-    @Size(max = 100, message = "Tên kỹ năng không được vượt quá 100 ký tự")
+    @Schema(description = "Skill name", example = "Java")
+    @Size(max = 100, message = "Skill name must not exceed 100 characters")
     private String name;
 
-    @Schema(description = "Danh mục phân loại kỹ năng", example = "BACKEND")
+    @Schema(description = "Skill category classification", example = "BACKEND")
     private SkillCategory category;
 
-    @Schema(description = "Mức độ thành thạo", example = "HIGH")
+    @Schema(description = "Proficiency level", example = "HIGH")
     private SkillLevel level;
 
-    @Schema(description = "Thứ tự ưu tiên hiển thị - giá trị nhỏ sẽ hiển thị trước", example = "1")
-    @Min(value = 0, message = "Priority phải là số không âm")
+    @Schema(description = "Display priority order - lower value appears first", example = "1")
+    @Min(value = 0, message = "Priority must be a non-negative number")
     private Integer priority;
 }

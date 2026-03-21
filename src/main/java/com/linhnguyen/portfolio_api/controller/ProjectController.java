@@ -23,7 +23,7 @@ import java.util.List;
 @RequestMapping("/v1/public/projects")
 @RequiredArgsConstructor
 @Slf4j
-@Tag(name = "Projects", description = "API công khai xem dự án")
+@Tag(name = "Projects", description = "Public API to view portfolio projects")
 public class ProjectController {
 
     private final ProjectService projectService;
@@ -35,9 +35,9 @@ public class ProjectController {
      * @return Danh sách project đang hoạt động
      */
     @GetMapping
-    @Operation(summary = "Lấy tất cả projects", description = "Lấy danh sách tất cả project, sắp xếp theo displayOrder. Không yêu cầu xác thực.")
+    @Operation(summary = "Get All Projects", description = "Retrieve all projects sorted by displayOrder. No authentication required.")
     @ApiResponses(value = {
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Lấy danh sách thành công")
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Projects retrieved successfully")
     })
     public ResponseEntity<ApiResponse<List<ProjectResponseDTO>>> getAllProjects() {
         List<ProjectResponseDTO> projects = projectService.getAllProjects();
@@ -51,12 +51,12 @@ public class ProjectController {
      * @return Danh sách project nổi bật
      */
     @GetMapping("/featured")
-    @Operation(summary = "Lấy projects nổi bật", description = "Lấy danh sách project được đánh dấu nổi bật (isFeatured = true)")
+    @Operation(summary = "Get Featured Projects", description = "Retrieve projects marked as featured (isFeatured = true)")
     @ApiResponses(value = {
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Lấy danh sách thành công")
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Featured projects retrieved successfully")
     })
     public ResponseEntity<ApiResponse<List<ProjectResponseDTO>>> getFeaturedProjects() {
-        log.info("Request lấy danh sách project nổi bật");
+        log.info("Request to get featured projects");
         List<ProjectResponseDTO> projects = projectService.getFeaturedProjects();
         return ResponseEntity.ok(ApiResponse.success(projects));
     }
@@ -68,14 +68,14 @@ public class ProjectController {
      * @return Danh sách project theo category
      */
     @GetMapping("/category/{category}")
-    @Operation(summary = "Lấy projects theo category", description = "Lấy danh sách project theo phân loại")
+    @Operation(summary = "Get Projects by Category", description = "Retrieve projects filtered by category")
     @ApiResponses(value = {
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Lấy danh sách thành công")
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Projects retrieved successfully")
     })
     public ResponseEntity<ApiResponse<List<ProjectResponseDTO>>> getProjectsByCategory(
-            @Parameter(description = "Phân loại dự án", example = "Backend", required = true)
+            @Parameter(description = "Project category", example = "Backend", required = true)
             @PathVariable String category) {
-        log.info("Request lấy danh sách project theo category: {}", category);
+        log.info("Request to get projects by category: {}", category);
         List<ProjectResponseDTO> projects = projectService.getProjectsByCategory(category);
         return ResponseEntity.ok(ApiResponse.success(projects));
     }
@@ -87,14 +87,14 @@ public class ProjectController {
      * @return Danh sách project theo status
      */
     @GetMapping("/status/{status}")
-    @Operation(summary = "Lấy projects theo status", description = "Lấy danh sách project theo trạng thái")
+    @Operation(summary = "Get Projects by Status", description = "Retrieve projects filtered by status")
     @ApiResponses(value = {
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Lấy danh sách thành công")
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Projects retrieved successfully")
     })
     public ResponseEntity<ApiResponse<List<ProjectResponseDTO>>> getProjectsByStatus(
-            @Parameter(description = "Trạng thái dự án", example = "completed", required = true)
+            @Parameter(description = "Project status", example = "completed", required = true)
             @PathVariable String status) {
-        log.info("Request lấy danh sách project theo status: {}", status);
+        log.info("Request to get projects by status: {}", status);
         List<ProjectResponseDTO> projects = projectService.getProjectsByStatus(status);
         return ResponseEntity.ok(ApiResponse.success(projects));
     }
@@ -106,15 +106,15 @@ public class ProjectController {
      * @return Thông tin project
      */
     @GetMapping("/{id}")
-    @Operation(summary = "Lấy project theo ID", description = "Lấy thông tin chi tiết của project theo ID")
+    @Operation(summary = "Get Project by ID", description = "Retrieve detailed project information by ID")
     @ApiResponses(value = {
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Lấy project thành công"),
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "404", description = "Không tìm thấy project")
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Project retrieved successfully"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "404", description = "Project not found")
     })
     public ResponseEntity<ApiResponse<ProjectResponseDTO>> getProjectById(
-            @Parameter(description = "ID của project", example = "1", required = true)
+            @Parameter(description = "Project ID", example = "1", required = true)
             @PathVariable Long id) {
-        log.info("Request lấy project với ID: {}", id);
+        log.info("Request to get project with ID: {}", id);
         ProjectResponseDTO project = projectService.getProjectById(id);
         return ResponseEntity.ok(ApiResponse.success(project));
     }

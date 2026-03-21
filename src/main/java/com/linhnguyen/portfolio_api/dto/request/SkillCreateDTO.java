@@ -15,23 +15,23 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-@Schema(description = "Thông tin để tạo mới Skill")
+@Schema(description = "New skill creation payload")
 public class SkillCreateDTO {
 
-    @Schema(description = "Tên của kỹ năng", example = "Java", requiredMode = Schema.RequiredMode.REQUIRED)
-    @NotBlank(message = "Tên kỹ năng là bắt buộc")
-    @Size(max = 100, message = "Tên kỹ năng không được vượt quá 100 ký tự")
+    @Schema(description = "Skill name", example = "Java", requiredMode = Schema.RequiredMode.REQUIRED)
+    @NotBlank(message = "Skill name is required")
+    @Size(max = 100, message = "Skill name must not exceed 100 characters")
     private String name;
 
-    @Schema(description = "Danh mục phân loại kỹ năng", example = "BACKEND", requiredMode = Schema.RequiredMode.REQUIRED)
-    @NotNull(message = "Danh mục là bắt buộc")
+    @Schema(description = "Skill category classification", example = "BACKEND", requiredMode = Schema.RequiredMode.REQUIRED)
+    @NotNull(message = "Category is required")
     private SkillCategory category;
 
-    @Schema(description = "Mức độ thành thạo", example = "HIGH", requiredMode = Schema.RequiredMode.REQUIRED)
-    @NotNull(message = "Mức độ thành thạo là bắt buộc")
+    @Schema(description = "Proficiency level", example = "HIGH", requiredMode = Schema.RequiredMode.REQUIRED)
+    @NotNull(message = "Proficiency level is required")
     private SkillLevel level;
 
-    @Schema(description = "Thứ tự ưu tiên hiển thị - giá trị nhỏ sẽ hiển thị trước", example = "1")
-    @Min(value = 0, message = "Priority phải là số không âm")
+    @Schema(description = "Display priority order - lower value appears first", example = "1")
+    @Min(value = 0, message = "Priority must be a non-negative number")
     private Integer priority;
 }

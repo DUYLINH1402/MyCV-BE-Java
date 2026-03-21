@@ -18,20 +18,19 @@ import lombok.Setter;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Schema(description = "Thông tin đổi mật khẩu")
+@Schema(description = "Change password request payload")
 public class ChangePasswordDTO {
 
-    @Schema(description = "Mật khẩu hiện tại", example = "oldPassword123", requiredMode = Schema.RequiredMode.REQUIRED)
-    @NotBlank(message = "Mật khẩu hiện tại không được để trống")
+    @Schema(description = "Current password", example = "oldPassword123", requiredMode = Schema.RequiredMode.REQUIRED)
+    @NotBlank(message = "Current password is required")
     private String currentPassword;
 
-    @Schema(description = "Mật khẩu mới (6-100 ký tự)", example = "newPassword456", requiredMode = Schema.RequiredMode.REQUIRED)
-    @NotBlank(message = "Mật khẩu mới không được để trống")
-    @Size(min = 6, max = 100, message = "Mật khẩu mới phải từ 6-100 ký tự")
+    @Schema(description = "New password (6-100 characters)", example = "newPassword456", requiredMode = Schema.RequiredMode.REQUIRED)
+    @NotBlank(message = "New password is required")
+    @Size(min = 6, max = 100, message = "New password must be between 6 and 100 characters")
     private String newPassword;
 
-    @Schema(description = "Xác nhận mật khẩu mới (phải trùng với mật khẩu mới)", example = "newPassword456", requiredMode = Schema.RequiredMode.REQUIRED)
-    @NotBlank(message = "Xác nhận mật khẩu không được để trống")
+    @Schema(description = "Confirm new password (must match new password)", example = "newPassword456", requiredMode = Schema.RequiredMode.REQUIRED)
+    @NotBlank(message = "Password confirmation is required")
     private String confirmPassword;
 }
-

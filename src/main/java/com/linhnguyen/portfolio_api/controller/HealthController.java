@@ -20,7 +20,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/v1/public/health")
 @Slf4j
-@Tag(name = "Health", description = "API kiểm tra trạng thái hệ thống")
+@Tag(name = "Health", description = "API health check and system status monitoring")
 public class HealthController {
 
     /**
@@ -30,7 +30,7 @@ public class HealthController {
      * @return Thông tin trạng thái service bao gồm: status, timestamp, service name, version
      */
     @GetMapping
-    @Operation(summary = "Health check", description = "Kiểm tra xem API có đang hoạt động không")
+    @Operation(summary = "Health Check", description = "Check if the API is up and running")
     public ResponseEntity<ApiResponse<Map<String, Object>>> healthCheck() {
 //        log.debug("Request kiểm tra health");
 
@@ -40,6 +40,6 @@ public class HealthController {
         healthInfo.put("service", "Portfolio API");
         healthInfo.put("version", "1.0.0");
 
-        return ResponseEntity.ok(ApiResponse.success("Service đang hoạt động bình thường", healthInfo));
+        return ResponseEntity.ok(ApiResponse.success("Service is running normally", healthInfo));
     }
 }
