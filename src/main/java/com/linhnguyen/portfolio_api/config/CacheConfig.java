@@ -37,9 +37,10 @@ public class CacheConfig {
 
         // Đăng ký tên các cache được sử dụng trong hệ thống
         cacheManager.setCacheNames(java.util.List.of(
-                "profile",      // Cache cho thông tin profile
-                "projects",   // Cache cho thông tin project
-                "skills"      // Cache cho thông tin skill
+                "profile",        // Cache cho thông tin profile
+                "projects",       // Cache cho thông tin project
+                "skills",         // Cache cho thông tin skill
+                "experiences"     // Cache cho thông tin professional experience
         ));
 
         return cacheManager;

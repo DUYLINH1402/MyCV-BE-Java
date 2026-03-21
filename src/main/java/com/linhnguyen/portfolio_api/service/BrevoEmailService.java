@@ -62,7 +62,6 @@ public class BrevoEmailService {
         try {
             ClassPathResource resource = new ClassPathResource(CONTACT_TEMPLATE_PATH);
             contactNotificationTemplate = new String(resource.getInputStream().readAllBytes(), StandardCharsets.UTF_8);
-            log.info("Đã load email template: {}", CONTACT_TEMPLATE_PATH);
         } catch (IOException e) {
             log.error("Không thể load email template: {}. Chi tiết: {}", CONTACT_TEMPLATE_PATH, e.getMessage());
             // Fallback template nếu không load được file
