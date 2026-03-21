@@ -58,7 +58,7 @@
 <tr>
 <td>
 
-### 💼 Project Management
+### Project Management
 - CRUD with soft delete
 - Featured projects & categories
 - JSONB fields (description, technologies, gallery)
@@ -67,7 +67,7 @@
 </td>
 <td>
 
-### 🛠️ Skill Management
+### Skill Management
 - CRUD with soft delete
 - Category: Frontend, Backend, Database, Tools, DevOps, Other
 - Skill levels: Low, Medium, High
@@ -78,7 +78,7 @@
 <tr>
 <td>
 
-### 📬 Contact Form
+### Contact Form
 - Receive messages from recruiters
 - Spam protection (5-min cooldown per email)
 - XSS prevention in email content
@@ -88,7 +88,7 @@
 </td>
 <td>
 
-### ⚡ Performance & Caching
+### Performance & Caching
 - Caffeine local cache (TTL: 10 min)
 - Auto cache eviction on write/delete
 - Admin manual cache clear API
