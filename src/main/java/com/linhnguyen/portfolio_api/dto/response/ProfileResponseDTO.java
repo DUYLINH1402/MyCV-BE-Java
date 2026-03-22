@@ -57,6 +57,9 @@ public class ProfileResponseDTO {
     @Schema(description = "Avatar image URL", example = "https://example.com/avatar.jpg")
     private String avatarUrl;
 
+    @Schema(description = "CV download URL (PDF)", example = "https://example.com/cv/nguyen-duy-linh-cv.pdf")
+    private String cvUrl;
+
     @Schema(description = "Record creation timestamp", example = "2025-01-11T10:30:00")
     private LocalDateTime createdAt;
 

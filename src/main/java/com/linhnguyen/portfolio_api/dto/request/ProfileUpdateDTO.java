@@ -68,4 +68,8 @@ public class ProfileUpdateDTO {
     @Schema(description = "Avatar image URL", example = "https://example.com/avatar.jpg")
     @Size(max = 255, message = "Avatar URL must not exceed 255 characters")
     private String avatarUrl;
+
+    @Schema(description = "CV download URL (PDF)", example = "https://example.com/cv/nguyen-duy-linh-cv.pdf")
+    @Size(max = 500, message = "CV URL must not exceed 500 characters")
+    private String cvUrl;
 }

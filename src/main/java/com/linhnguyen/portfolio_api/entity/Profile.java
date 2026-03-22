@@ -71,4 +71,8 @@ public class Profile extends BaseEntity {
     /** Đường dẫn đến ảnh đại diện */
     @Column(name = "avatar_url")
     private String avatarUrl;
+
+    /** Đường dẫn tải CV bản cứng (PDF) */
+    @Column(name = "cv_url")
+    private String cvUrl;
 }
