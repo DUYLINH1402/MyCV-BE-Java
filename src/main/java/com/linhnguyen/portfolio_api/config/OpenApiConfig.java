@@ -43,7 +43,7 @@ public class OpenApiConfig {
                         .contact(new Contact()
                                 .name("Nguyen Duy Linh")
                                 .email("duylinh63b5@gmail.com")
-                                .url("portfolio-f2abd.web.app")))
+                                .url("duylinhcv.com")))
                 .servers(List.of(
                         new Server()
                                 .url("http://localhost:" + serverPort + "/api")
