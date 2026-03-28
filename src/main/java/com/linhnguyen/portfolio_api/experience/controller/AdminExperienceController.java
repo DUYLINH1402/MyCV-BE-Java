@@ -1,0 +1,82 @@
+package com.linhnguyen.portfolio_api.experience.controller;
+
+import com.linhnguyen.portfolio_api.common.ApiResponse;
+import com.linhnguyen.portfolio_api.experience.dto.ExperienceCreateDTO;
+import com.linhnguyen.portfolio_api.experience.dto.ExperienceUpdateDTO;
+import com.linhnguyen.portfolio_api.experience.dto.ExperienceResponseDTO;
+import com.linhnguyen.portfolio_api.experience.service.ExperienceService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+/**
+ * REST Controller xử lý các API quản lý Professional Experience dành cho Admin.
+ */
+@RestController
+@RequestMapping("/v1/admin/experiences")
+@RequiredArgsConstructor
+@Slf4j
+@Tag(name = "Admin - Experiences", description = "Admin professional experience management API (Requires JWT authentication)")
+@SecurityRequirement(name = "bearerAuth")
+public class AdminExperienceController {
+
+    private final ExperienceService experienceService;
+
+    @PostMapping
+    @Operation(summary = "Create Experience", description = "Admin creates a new professional experience")
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "201", description = "Experience created successfully"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "Invalid request data"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "401", description = "Not authenticated or invalid token"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "409", description = "Duplicate experience (same job title and company)")
+    })
+    public ResponseEntity<ApiResponse<ExperienceResponseDTO>> createExperience(
+            @Valid @RequestBody ExperienceCreateDTO request) {
+        log.info("[ADMIN] Request to create new experience: {} at {}", request.getJobTitle(), request.getCompany());
+        ExperienceResponseDTO experience = experienceService.createExperience(request);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(ApiResponse.created(experience));
+    }
+
+    @PutMapping("/{id}")
+    @Operation(summary = "Update Experience", description = "Admin updates professional experience information by ID")
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Experience updated successfully"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "Invalid request data"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "401", description = "Not authenticated or invalid token"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "404", description = "Experience not found"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "409", description = "Duplicate experience (same job title and company)")
+    })
+    public ResponseEntity<ApiResponse<ExperienceResponseDTO>> updateExperience(
+            @Parameter(description = "Experience ID", example = "1", required = true)
+            @PathVariable Long id,
+            @Valid @RequestBody ExperienceUpdateDTO request) {
+        log.info("[ADMIN] Request to update experience with ID: {}", id);
+        ExperienceResponseDTO experience = experienceService.updateExperience(id, request);
+        return ResponseEntity.ok(ApiResponse.success("Experience updated successfully", experience));
+    }
+
+    @DeleteMapping("/{id}")
+    @Operation(summary = "Delete Experience", description = "Admin soft-deletes a professional experience by ID")
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Experience deleted successfully"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "401", description = "Not authenticated or invalid token"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "404", description = "Experience not found")
+    })
+    public ResponseEntity<ApiResponse<Void>> deleteExperience(
+            @Parameter(description = "Experience ID", example = "1", required = true)
+            @PathVariable Long id) {
+        log.info("[ADMIN] Request to delete experience with ID: {}", id);
+        experienceService.deleteExperience(id);
+        return ResponseEntity.ok(ApiResponse.successMessage("Experience deleted successfully"));
+    }
+}
+

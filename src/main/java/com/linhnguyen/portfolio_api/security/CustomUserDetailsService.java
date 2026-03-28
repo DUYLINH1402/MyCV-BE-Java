@@ -1,7 +1,7 @@
 package com.linhnguyen.portfolio_api.security;
 
-import com.linhnguyen.portfolio_api.entity.AdminCredential;
-import com.linhnguyen.portfolio_api.repository.AdminCredentialRepository;
+import com.linhnguyen.portfolio_api.auth.entity.AdminCredential;
+import com.linhnguyen.portfolio_api.auth.repository.AdminCredentialRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

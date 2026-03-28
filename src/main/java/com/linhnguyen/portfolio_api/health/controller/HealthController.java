@@ -1,0 +1,37 @@
+package com.linhnguyen.portfolio_api.health.controller;
+
+import com.linhnguyen.portfolio_api.common.ApiResponse;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * Controller kiểm tra trạng thái hoạt động của API.
+ */
+@RestController
+@RequestMapping("/v1/public/health")
+@Slf4j
+@Tag(name = "Health", description = "API health check and system status monitoring")
+public class HealthController {
+
+    @GetMapping
+    @Operation(summary = "Health Check", description = "Check if the API is up and running")
+    public ResponseEntity<ApiResponse<Map<String, Object>>> healthCheck() {
+        Map<String, Object> healthInfo = new HashMap<>();
+        healthInfo.put("status", "UP");
+        healthInfo.put("timestamp", LocalDateTime.now());
+        healthInfo.put("service", "Portfolio API");
+        healthInfo.put("version", "1.0.0");
+
+        return ResponseEntity.ok(ApiResponse.success("Service is running normally", healthInfo));
+    }
+}
+
