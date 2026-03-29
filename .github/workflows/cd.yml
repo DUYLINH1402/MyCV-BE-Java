@@ -44,7 +44,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 # Set image name to lowercase để convert DUYLINH1402/MyCV-BE-Java → duylinh1402/mycv-be-java (Do Docker KHÔNG cho phép chữ hoa trong image name)
       - name: Set image name to lowercase
         id: image_name
@@ -106,7 +106,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Set image name to lowercase
         run: echo "IMAGE_NAME=$(echo ${{ github.repository }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
